@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+import "../assets/css/stylesheet-nav-bar-custom.css"
+import "../assets/css/stylesheet-perfil.css"
+import "../assets/css/stylesheet-footer.css"
+
 const Perfil: React.FC = () => {
   // Datos de ejemplo (después podemos conectarlos a un backend)
   const [username, setUsername] = useState("Usuario");

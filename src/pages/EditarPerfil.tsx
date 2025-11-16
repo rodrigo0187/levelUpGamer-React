@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+import "../assets/css/stylesheet-nav-bar-custom.css"
+import "../assets/css/stylesheet-editar-perfil.css"
+
+
 const EditarPerfil: React.FC = () => {
   const [avatar, setAvatar] = useState<string>("/img/icon/LOGO.ico");
 

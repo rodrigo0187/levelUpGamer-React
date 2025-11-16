@@ -1,0 +1,78 @@
+body {
+    
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f1a;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 100px;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('../img/imgHero2.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 7rem 0;
+    margin-bottom: 3rem;
+    text-align: center;
+
+}
+
+h1, h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    color: var(--neon-green);
+}
+
+p{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+.column {
+  float: bottom ;
+  width: 30%;
+  margin-left: 30px;
+  padding: 0px 8px;
+}
+
+.card {
+    background-color: #1a1a2e;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    border:1px solid #500570;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(255, 0, 234, 0.493);
+}
+
+.card img {
+    border: 30px solid #1a1a2e;
+}
+footer {
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 2px solid var(--neon-green);
+}
+:root {
+    --electric-blue: #1E90FF;
+    --neon-green: #39FF14;
+}
+
+
+
+
+
+
+
+

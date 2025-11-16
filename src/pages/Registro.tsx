@@ -1,13 +1,20 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+
+import "../assets/css/stylesheet-nav-bar-custom.css"
+import "../assets/css/stylesheet-footer.css"
+import "../assets/css/stylesheet-navbar.css"
+import "../assets/css/stylesheet-inicio-registro.css"
+
+
 export default function Registro() {
   return (
     <div className="profileregistro">
       <div className="page-container">
 
         {/* NAVBAR */}
-        <Navbar />
+        <Navbar />  
 
         {/* CONTENEDOR DEL REGISTRO */}
         <div className="register-container">

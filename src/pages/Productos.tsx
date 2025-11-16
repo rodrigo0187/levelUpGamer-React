@@ -1,6 +1,10 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+import "../assets/css/stylesheet-productos.css"
+import "../assets/css/stylesheet-footer.css"
+import "../assets/css/stylesheet-nav-bar-custom.css"
+
 export default function Productos() {
   return (
     <div className="profileproductos">

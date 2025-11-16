@@ -1,0 +1,134 @@
+/* Fondo de la página */
+body {
+  background: url("../img/img-registro-usuario.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor centrado */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* ocupa toda la pantalla */
+  padding: 10px;
+  padding-top: 40px;
+}
+
+/* Formulario ultra-compacto */
+.register-container form {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 12px;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+}
+
+/* Títulos y párrafos */
+.register-container h1 {
+  font-size: 18px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.register-container p {
+  font-size: 12px;
+  margin: 2px 0 8px 0;
+  text-align: center;
+}
+
+/* Inputs compactos */
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="tel"],
+.register-container input[type="password"] {
+  width: 100%;
+  padding: 6px 8px;
+  margin: 4px 0 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-sizing: border-box;
+}
+
+/* Placeholder */
+.register-container input::placeholder {
+  color: #ccc;
+  font-size: 11px;
+}
+
+/* Mensajes de error */
+.text-danger {
+  font-size: 10px;
+  margin: 2px 0 4px 0;
+  display: block;
+}
+
+/* Botones compactos */
+.register-container button {
+  width: 48%;
+  padding: 5px;
+  margin-top: 6px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Botón cancelar */
+.cancelbtn {
+  background-color: #7213fe;
+  color: #fff;
+}
+
+/* Botón enviar */
+.signupbtn {
+  background-color: #7213fe;
+  color: #fff;
+  float: right;
+}
+
+/* Hover efecto */
+.cancelbtn:hover,
+.signupbtn:hover {
+  background-color: #b989ff;
+}
+
+/* Asterisco */
+#asterisco {
+  font-size: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Responsive: en pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .register-container form {
+    padding: 10px;
+  }
+  .register-container h1 {
+    font-size: 16px;
+  }
+  .register-container p {
+    font-size: 11px;
+  }
+  .register-container input,
+  .register-container button {
+    font-size: 11px;
+    padding: 5px;
+  }
+}
+.page-container {
+  padding-top: 70px;
+}
+
+:root {
+    --electric-blue: #1E90FF;
+    --neon-green: #39FF14;
+}
