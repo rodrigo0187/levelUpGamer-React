@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 
 import "../assets/css/stylesheet-editar-perfil.css"
 import "../assets/css/stylesheer.profileCard.css"
