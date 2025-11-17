@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import "../styles/stylesheet-nav-bar-custom.css"; // ajusta la ruta si tu css está en otra carpeta
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "../assets/css/stylesheet-nav-bar-custom.css"; // ajusta la ruta si tu css está en otra carpeta
+import logo from "../assets/img/icon/LOGO.ico";
 
 export default function Navbar() {
   useEffect(() => {
@@ -11,7 +13,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
       <div className="container-fluid">
         <img
-          src="/img/icon/LOGO.ico"
+          src={logo}
           alt="Avatar Logo"
           style={{ width: "100px" }}
           className="rounded-pill"

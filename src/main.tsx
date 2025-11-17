@@ -1,17 +1,11 @@
-import Navbar from "./src/components/Navbar";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./assets/fonts/fonts.css"
 
-import Home from "./pages/Home";
 
-import Footer from "./components/Footer";
-
-function App() {
-  return (
-    <>
-      <Navbar />
-      <Home />
-      <Footer />
-    </>
-  );
-}
-
-export default App;
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
