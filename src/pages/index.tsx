@@ -9,8 +9,7 @@ import Slide7 from "../assets/img/CarouselSlide7.jpg";
 import Slide8 from "../assets/img/CarouselSlide8.jpg";
 import Slide5 from "../assets/img/CarouselSlide5.jpg";
 
-
-// categorias 
+// Categorías 
 import JuegosMesa from "../assets/img/categorias-productos/JuegosDeMesa.webp";
 
 const Index: React.FC = () => {
@@ -48,7 +47,7 @@ const Index: React.FC = () => {
                     <div className="carousel-item">
                         <img src={Slide1} className="d-block w-100" />
                         <div className="carousel-caption">
-                            <h3>Conoce mas acerca de nuestra gran variedad de productos.</h3>
+                            <h3>Conoce más acerca de nuestra gran variedad de productos.</h3>
                             <a href="/productos" className="btn btn-gamer btn-lg mt-3">
                                 Ver Productos
                             </a>
@@ -59,9 +58,9 @@ const Index: React.FC = () => {
                     <div className="carousel-item">
                         <img src={Slide10} className="d-block w-100" />
                         <div className="carousel-caption">
-                            <h3>Conoce mas sobre nosotros y nuestra vision.</h3>
+                            <h3>Conoce más sobre nosotros y nuestra visión.</h3>
                             <a href="/sobre-nosotros" className="btn btn-gamer btn-lg mt-3">
-                                Conocenos
+                                Conócenos
                             </a>
                         </div>
                     </div>
@@ -124,25 +123,23 @@ const Index: React.FC = () => {
             </div>
 
             {/* Benefits */}
-            <section className="row mb-5" id="benefits">
-                <div className="col-md-4 mb-4">
-                    <div className="register-benefit">
+            <section className="row g-4" id="benefits">
+                <div className="col-md-4">
+                    <div className="card-index h-100">
                         <i className="bi bi-mortarboard-fill"></i>
                         <h4>Descuento Duoc</h4>
                         <p>20% de descuento para estudiantes Duoc UC</p>
                     </div>
                 </div>
-
-                <div className="col-md-4 mb-4">
-                    <div className="register-benefit">
+                <div className="col-md-4">
+                    <div className="card-index h-100">
                         <i className="bi bi-box-seam-fill"></i>
                         <h4>Envíos a todo Chile</h4>
                         <p>Despachamos sin costo adicional</p>
                     </div>
                 </div>
-
-                <div className="col-md-4 mb-4">
-                    <div className="register-benefit">
+                <div className="col-md-4">
+                    <div className="card-index h-100">
                         <i className="bi bi-award-fill"></i>
                         <h4>Programa Level-Up</h4>
                         <p>Gana puntos y canjéalos por productos</p>
@@ -150,28 +147,22 @@ const Index: React.FC = () => {
                 </div>
             </section>
 
+
             {/* Categorías */}
             <section id="categorias-productos" className="mb-5">
                 <h1 className="section-title text-center mb-4">Categorías de Productos</h1>
 
                 <div className="container">
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-                        {/* Aquí podríamos mapear categorías desde un arreglo luego */}
-                        {/* Te dejo un ejemplo convertido ya listo */}
-
-                        <div className="col-md-6 col-lg-4">
-                            <div className="category-card">
+                    <div className="row justify-content-center">
+                        <div className="col-md-6 col-lg-4 mb-4">
+                            <div className="card-index">
                                 <img src={JuegosMesa} className="category-image" />
-                                <div className="category-overlay">
-                                    <h3 className="category-title">Juegos de Mesa</h3>
-                                    <p>Descubre juegos sin pantallas.</p>
-                                    <a href="/productos" className="view-all-btn">
-                                        Ver todos
-                                    </a>
-                                </div>
+                                <h3>Juegos de Mesa</h3>
+                                <p>Descubre juegos sin pantallas.</p>
+                                <a href="/productos" className="view-all-btn">Ver todos</a>
                             </div>
                         </div>
+                        {/* Agregar más categorías aquí */}
                     </div>
                 </div>
             </section>

@@ -4,18 +4,19 @@ import Footer from "./components/Footer";
 
 // Páginas
 import Index from "./pages/index";
-import Productos from "./pages/Productos";
-import Soporte from "./pages/Soporte";
-import Blog from "./pages/Blog";
-import SobreNosotros from "./pages/SobreNosotros";
-import Registro from "./pages/Registro";
-import InicioSesion from "./pages/InicioSesion";
+import Productos from "./pages/productos";
+import Soporte from "./pages/soporte";
+import Blog from "./pages/blog";
+import SobreNosotros from "./pages/sobre-Nosotros";
+import Registro from "./pages/registro";
+import InicioSesion from "./pages/inicio-sesion";
 import NotFound from "./components/NotFound";
-
+import Perfil from "./pages/perfil";
+import VermiPerfil from "./pages/ver-Mi-perfil";
 // CSS GLOBAL REAL
 import "./assets/css/stylesheet-html-body.css";
 import "./assets/css/stylesheet-general.css";
-import "./assets/css/stylesheet-navbar.css";
+import "./assets/css/stylesheet-nav-bar.css";
 import "./assets/css/stylesheet-footer.css";
 
 // LIBRERÍAS (solo aquí debe cargarse)
@@ -37,10 +38,13 @@ function App() {
         <Route path="/productos" element={<Productos />} />
         <Route path="/soporte" element={<Soporte />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/SobreNosotros" element={<SobreNosotros />} />
+        <Route path="/sobre-Nosotros" element={<SobreNosotros />} />
         <Route path="/Registro" element={<Registro />} />
-        <Route path="/InicioSesion" element={<InicioSesion />} />
+        <Route path="/inicio-sesion" element={<InicioSesion />} />
+        <Route path="/notfound" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/ver-mi-Perfil" element={<VermiPerfil />} />
       </Routes>
 
       <Footer />

@@ -2,11 +2,12 @@
    ESTILOS DEL CONTENEDOR RAÍZ
    =========================== */
 .profileproductos {
-    background-color: #0f0f1a;
+
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 100px;
+    padding-top: 0;
     min-height: 100vh;
+    margin-top: 0;
 }
 
 /* ===========================

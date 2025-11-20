@@ -1,15 +1,61 @@
-html ,body{
-    height: 100%;
-    margin:0;
+/* ==============================
+   Ajuste global para navbar fixed-top
+============================== */
+body {
+    padding-top: 15px;
+    /* eliminamos el padding extra */
+    margin: 0;
+}
+
+/* Solo aplicar espacio si quieres que el navbar no tape el contenido inicial */
+.page-container,
+.profileindex,
+.profilesoporte {
+    margin-top: 0;
+    /* eliminar márgenes extra */
+}
+
+/* ==============================
+   Carousel
+============================== */
+.carousel-item img {
+    margin: 0;
+    display: block;
+}
+
+.carousel-caption {
+    bottom: auto;
+    /* desactiva bottom por defecto */
+    top: 10%;
+    /* ajustar según lo visual deseado */
+    text-align: center;
+}
+
+.carousel-caption h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--neon-green);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* ==============================
+   Benefits
+============================== */
+.profileindex #benefits {
+    margin-top: 2rem;
+    /* un espacio mínimo bajo el carousel */
+}
+
+/* ==============================
+   Contenedores generales
+============================== */
+.page-container,
+.profileindex,
+.profilesoporte {
     display: flex;
     flex-direction: column;
 }
 
-.page-container{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
 main {
     flex: 1;
 }

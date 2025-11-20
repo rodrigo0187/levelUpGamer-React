@@ -1,163 +1,171 @@
-/* 🔒 Reset general NO invasivo */
+/* ---- AISLAMIENTO DE LA PÁGINA ---- */
 .profileindex {
-    background-color: #0f0f1a;
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif;
     min-height: 100vh;
-    padding-top: 80px;
-    /* para no chocar con navbar */
-}
-
-/* Mantengo el font-face, eso no da problemas */
-@font-face {
-    font-family: 'Roboto';
-    src: url('../fonts/Roboto-VariableFont_wdth_wght.ttf') format('woff2');
-    font-weight: 400 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Orbitron';
-    src: url('../fonts/Orbitron-VariableFont_wght.ttf') format('woff2');
-    font-weight: 400 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-}
-
-/* Carrusel */
-.profileindex .carousel-caption {
-    background-color: rgba(75, 15, 92, 0.404);
-    border: 1px solid var(--neon-green);
-    box-shadow: 0 10px 20px rgba(57, 255, 20, 0.3);
-    border-radius: 10px;
-    transform: translate(20%, -10%);
-    width: 50%;
-}
-
-.profileindex .carousel-item img {
-    height: 400px;
-    width: 100%;
-    object-fit: cover;
-}
-
-/* Botón Gamer */
-.profileindex .btn-gamer {
-    background-color: #500570;
-    border: none;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
-    transition: all 0.3s ease;
-    font-weight: 700;
+    margin-top: 0;
+    /* eliminar margen que separa del navbar */
+    padding-top: 0;
+    /* padding-top extra desactivado */
 }
 
-.profileindex .btn-gamer:hover {
-    background-color: #6f079c;
-    transform: scale(1.05);
-}
-
-/* Controles carrusel */
-.profileindex .carousel-control-prev:hover,
-.profileindex .carousel-control-next:hover {
-    background-color: rgba(255, 255, 255, 0.11);
-    border-radius: 10px;
-}
-
-/* Beneficios */
-.profileindex .register-benefit {
-    text-align: center;
-    padding: 1.5rem;
-    border-radius: 10px;
-    background-color: rgba(30, 144, 255, 0.1);
-    border: 1px solid var(--neon-green);
-}
-
-.profileindex .register-benefit i {
-    font-size: 2.5rem;
-    color: var(--neon-green);
-}
-
-/* Categorías */
-.profileindex .category-card {
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #2d2d4d;
-    position: relative;
-}
-
-.profileindex .category-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(57, 255, 20, 0.3);
-}
-
-.profileindex .category-image {
-    height: 250px;
-    object-fit: cover;
+/* ---- CAROUSEL ---- */
+.carousel-item img {
     width: 100%;
-    transition: transform 0.5s ease;
-}
-
-.profileindex .category-card:hover .category-image {
-    transform: scale(1.05);
-}
-
-.profileindex .category-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    padding: 20px;
-    color: white;
-}
-
-.profileindex .category-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-/* Botón categorías */
-.profileindex .view-all-btn {
-    border-radius: 10px;
-    margin-top: 15px;
-    color: var(--neon-green);
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.profileindex .view-all-btn:hover {
-    background-color: rgba(255, 255, 255, 0.288);
-}
-
-/* Línea del título */
-.profileindex .section-title {
-    position: relative;
-}
-
-.profileindex .section-title::after {
-    content: '';
+    height: 60vh;
+    /* altura base */
+    object-fit: cover;
+    margin: 0;
     display: block;
-    width: 80%;
-    max-width: 700px;
-    height: 5px;
-    background: linear-gradient(to right, var(--electric-blue), var(--neon-green));
-    margin: 10px auto;
-    border-radius: 2px;
 }
 
-@media (max-width: 768px) {
-    .profileindex .carousel-caption {
-        width: 90% !important;
-        transform: translate(0, 0) !important;
-        left: 5% !important;
-        right: 5% !important;
-        padding: 0.5rem;
-        font-size: 0.95rem;
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    top: 10%;
+    /* más cerca del navbar */
+    bottom: auto;
+    text-align: center;
+}
+
+/* Ajuste tipográfico */
+.carousel-caption h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--neon-green);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* ---- BOTONES DEL CAROUSEL ---- */
+.btn-gamer {
+    background-color: #7213fe;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.btn-gamer:hover {
+    background-color: #b989ff;
+    color: #fff;
+}
+
+/* ---- TARJETAS (BENEFITS Y CATEGORÍAS) ---- */
+.card-index {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a2e;
+    border: 1px solid #500570;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-index:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(255, 0, 234, 0.4);
+}
+
+.card-index i {
+    font-size: 2rem;
+    color: var(--neon-green);
+    margin-bottom: 0.75rem;
+}
+
+.card-index h4,
+.card-index h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-green);
+    margin-bottom: 0.5rem;
+}
+
+.card-index p {
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+/* ---- IMÁGENES DE CATEGORÍAS ---- */
+.category-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* ---- BOTÓN VER TODOS ---- */
+.view-all-btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    background-color: #7213fe;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.view-all-btn:hover {
+    background-color: #b989ff;
+    color: #fff;
+}
+
+/* ---- BENEFITS ---- */
+#benefits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 1rem;
+}
+
+/* ---- SECCIÓN DE CATEGORÍAS ---- */
+#categorias-productos {
+    margin: 2rem 1rem;
+}
+
+/* ---- MEDIA QUERIES ---- */
+@media (min-width: 768px) {
+    .carousel-item img {
+        height: 70vh;
     }
+}
+
+@media (min-width: 1024px) {
+    .carousel-item img {
+        height: 80vh;
+    }
+
+    .card-index:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 10px 20px rgba(255, 0, 234, 0.45);
+    }
+}
+
+/* Responsive móvil-first para benefits y categorías */
+@media (max-width: 576px) {
+    #benefits {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-index {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+/* ---- AJUSTE NAVBAR FIXED-TOP ---- */
+body {
+    padding-top: 0;
+    /* elimina padding extra */
+    margin: 0;
 }
