@@ -1,27 +1,18 @@
-body,
-html {
-    height: 100%;
-    margin: 0;
-} 
-body{
-    background: url("/img/img-perfil.jpg");
-    min-height: 100vh; /* altura restante excluyendo navbar y footer */
-       display: flex;
-    flex-direction: column;
-    margin-top: 80px;
-}
-
-
-main {
+/* ---- CONTENEDOR AISLADO ---- */
+.profile-perfil-page {
+    min-height: 100vh;
+    background: url("../img/img-perfil.jpg") no-repeat center center fixed;
+    background-size: cover;
+    padding-top: 100px;
+    padding-bottom: 50px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background: transparent; /* mantiene transparencia */
+    align-items: flex-start;
 }
 
-/* Card transparente tipo formulario */
-.card {
-    background: rgba(0, 0, 0, 0.6); /* negro semitransparente */
+/* ---- CARD ---- */
+.profile-perfil-page .card {
+    background: rgba(0, 0, 0, 0.6);
     color: #ffffff;
     border-radius: 15px;
     padding: 2rem;
@@ -30,34 +21,13 @@ main {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Botones dentro de la card */
-.card .btn {
+/* ---- Botones ---- */
+.profile-perfil-page .btn {
     min-width: 120px;
-}
-
-/* Historial de actividad */
-#userPosts {
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-/* Scroll personalizado */
-#userPosts::-webkit-scrollbar {
-    width: 6px;
-}
-
-#userPosts::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 3px;
-}
-
-/* Aplica a todos los botones dentro de la card o container */
-.card .btn {
-    width: 100%;
     padding: 10px;
     margin-top: 10px;
-    background-color: #7213fe;
-    color: #fff;
+    background-color: #7213fe !important;
+    color: #fff !important;
     border: none;
     border-radius: 5px;
     font-size: 15px;
@@ -65,29 +35,24 @@ main {
     transition: background-color 0.3s ease;
 }
 
-/* Hover correcto */
-.card .btn:hover {
-    background-color: #b989ff;
+.profile-perfil-page .btn:hover {
+    background-color: #b989ff !important;
 }
 
-#userPosts {
-    max-height: 200px;         /* Limita altura de la lista */
-    overflow-y: auto;          /* Scroll si hay muchos items */
-    padding-left: 0;           /* Quitar indentación de ul */
+/* ---- Historial de actividad ---- */
+.profile-perfil-page #userPosts {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-left: 0;
     margin-top: 10px;
 }
 
-#userPosts li {
-    background: rgba(255, 255, 255, 0.1); /* fondo semitransparente */
+.profile-perfil-page #userPosts li {
+    background: rgba(255, 255, 255, 0.1);
     margin-bottom: 5px;
     padding: 8px 12px;
     border-radius: 5px;
     color: #fff;
     list-style: none;
     font-size: 14px;
-}
-
-:root {
-    --electric-blue: #1E90FF;
-    --neon-green: #39FF14;
 }

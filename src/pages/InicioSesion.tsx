@@ -1,69 +1,32 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import "../assets/css/stylesheet-inicio-sesion.css";
 
-import "../assets/css/stylesheet-inicio-sesion.css"
-import "../assets/css/stylesheet-nav-bar-custom.css"
-import "../assets/css/stylesheet-footer.css"
-
-const InicioSesion: React.FC = () => {
+const InicioSesion = () => {
   return (
-    <>
-      <Navbar />
+    <div className="inicio-sesion-page">
+      <div className="login-container">
 
-      <div className="login-container profileiniciosesion">
+        <div className="imgcontainer">
+          <img src="/img/icon/LOGO.ico" alt="Avatar" className="avatar" />
+        </div>
+
         <form>
-          <div className="imgcontainer">
-            <img
-              src="/img/icon/LOGO.ico"
-              alt="Avatar"
-              className="avatar"
-            />
-          </div>
+          <label htmlFor="email"><b>Nombre de usuario</b></label>
+          <input type="email" id="email" placeholder="ejemplo@dominio.cl" required />
 
-          <div className="container">
-            <label htmlFor="email">
-              <b>Nombre de usuario</b>
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="JhonDoe@dominio.cl"
-              name="email"
-              required
-            />
+          <label htmlFor="psw"><b>Contraseña</b></label>
+          <input type="password" id="psw" placeholder="Ingresa tu contraseña" required />
 
-            <label htmlFor="psw">
-              <b>Contraseña</b>
-            </label>
-            <input
-              type="password"
-              id="psw"
-              placeholder="Ingresa la contraseña"
-              name="psw"
-              required
-            />
+          <button type="submit">Ingresar</button>
 
-            <button type="submit">Ingresar</button>
+          <label>
+            <input type="checkbox" defaultChecked /> Recuérdame
+          </label>
 
-            <label>
-              <input type="checkbox" defaultChecked /> Recuérdame
-            </label>
-          </div>
-
-          <div className="container">
-            <button type="button" className="cancelbtn">
-              Cancelar
-            </button>
-            <span className="psw">
-              ¿Olvidó su <a href="#">contraseña?</a>
-            </span>
-          </div>
+          <button type="button" className="cancelbtn">Cancelar</button>
         </form>
-      </div>
 
-      <Footer />
-    </>
+      </div>
+    </div>
   );
 };
 

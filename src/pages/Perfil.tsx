@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
-import "../assets/css/stylesheet-nav-bar-custom.css"
 import "../assets/css/stylesheet-perfil.css"
-import "../assets/css/stylesheet-footer.css"
 
 const Perfil: React.FC = () => {
   // Datos de ejemplo (después podemos conectarlos a un backend)
@@ -29,10 +25,9 @@ const Perfil: React.FC = () => {
 
   return (
     <>
-      <Navbar />
 
-      <main className="container my-5 pt-5">
-        <div className="card mx-auto shadow p-4" style={{ maxWidth: "600px" }}>
+      <main className="profile-perfil-page">
+        <div className="card shadow p-4">
           <div className="text-center">
             <img
               src={avatar}
@@ -61,7 +56,7 @@ const Perfil: React.FC = () => {
           <hr />
 
           <h5>Historial de actividad</h5>
-          <ul className="list-group list-group-flush">
+          <ul id="userPosts">
             {posts.length > 0 ? (
               posts.map((post, index) => (
                 <li key={index} className="list-group-item">
@@ -76,8 +71,6 @@ const Perfil: React.FC = () => {
           </ul>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 };

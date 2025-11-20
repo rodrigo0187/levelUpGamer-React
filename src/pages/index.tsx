@@ -1,9 +1,6 @@
 import React from "react";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import "../assets/css/stylesheet-nav-bar-custom.css";
-import "../assets/css/stylesheet-index.css";
-import "../assets/css/stylesheet-footer.css";
 
+import "../assets/css/stylesheet-index.css";
 
 import Slide9 from "../assets/img/CarouselSlide9.jpg";
 import Slide1 from "../assets/img/CarouselSlide1.jpg";
@@ -175,9 +172,6 @@ const Index: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Puedes seguir copiando el resto igual que este */}
-
                     </div>
                 </div>
             </section>

@@ -1,16 +1,8 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
-import "../assets/css/stylesheet-nav-bar-custom.css"
-import "../assets/css/stylesheet-footer.css"
 import "../assets/css/stylesheet-formulario-soporte.css"
-
-
 export default function Soporte() {
   return (
     <div className="profilesoporte page-container">
       {/* NAVBAR */}
-      <Navbar />
 
       {/* CONTENEDOR FORMULARIO + MAPA */}
       <div className="container mt-4 contenedor-form-mapa">
@@ -66,9 +58,6 @@ export default function Soporte() {
           ></iframe>
         </div>
       </div>
-
-      {/* FOOTER */}
-      <Footer />
     </div>
   );
 }

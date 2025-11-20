@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
-import "../assets/css/stylesheet-nav-bar-custom.css"
 import "../assets/css/stylesheet-editar-perfil.css"
 
 
@@ -17,8 +13,6 @@ const EditarPerfil: React.FC = () => {
 
   return (
     <>
-      <Navbar />
-
       <div className="container mt-5 pt-5 mb-5">
         <h2 className="text-center mb-4">Editar Perfil</h2>
 
@@ -111,7 +105,6 @@ const EditarPerfil: React.FC = () => {
         </div>
       </div>
 
-      <Footer />
     </>
   );
 };

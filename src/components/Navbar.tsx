@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import "../assets/css/stylesheet-nav-bar-custom.css"; // ajusta la ruta si tu css está en otra carpeta
 import logo from "../assets/img/icon/LOGO.ico";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   useEffect(() => {
@@ -35,47 +35,47 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto">
 
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/">
                 <i className="fa fa-fw fa-home"></i>Home
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/productos">Productos</a>
+              <Link className="nav-link" to="/productos">Productos</Link>
             </li>
 
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/soporte">Soporte</a>
+              <Link className="nav-link" to="/soporte">Soporte</Link>
             </li>
 
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/blog">Blogs</a>
+              <Link className="nav-link" to="/blog">Blogs</Link>
             </li>
 
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/sobre-nosotros">Sobre Nosotros</a>
+              <Link className="nav-link" to="/sobre-nosotros">Sobre Nosotros</Link>
             </li>
 
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/registro">Registro</a>
+              <Link className="nav-link" to="/registro">Registro</Link>
             </li>
 
             {/* Iniciar sesión */}
             <li className="nav-item mx-1">
-              <a className="nav-link" href="/inicio_sesion">Iniciar sesión</a>
+              <Link className="nav-link" to="/inicio_sesion">Iniciar sesión</Link>
             </li>
 
             {/* Usuario logueado — esto luego lo reemplazamos con React state */}
             <li className="nav-item mx-1" style={{ display: "none" }}>
-              <a className="nav-link" href="/perfil">
+              <Link className="nav-link" to="/perfil">
                 <i className="fa fa-fw fa-user"></i>
                 <span> Usuario</span>
-              </a>
+              </Link>
             </li>
 
             {/* Cerrar sesión */}
             <li className="nav-item mx-1" style={{ display: "none" }}>
-              <a className="nav-link" href="#">Cerrar sesión</a>
+              <Link className="nav-link" to="#">Cerrar sesión</Link>
             </li>
 
           </ul>

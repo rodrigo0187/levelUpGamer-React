@@ -1,16 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
-import "../assets/css/stylesheet-nav-bar-custom.css"
-import "../assets/css/stylesheet-footer.css"
 import "../assets/css/stylesheet-sobre-nosotros.css"
-
-
 const SobreNosotros: React.FC = () => {
   return (
     <div className="profilesobrenosotros">
-      <Navbar />
+
 
       {/* Hero Section */}
       <section className="hero-section">
@@ -74,8 +67,6 @@ const SobreNosotros: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

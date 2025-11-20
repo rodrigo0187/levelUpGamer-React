@@ -1,16 +1,21 @@
-body {
+/* ===========================
+   ESTILOS DEL CONTENEDOR RAÍZ
+   =========================== */
+.profileproductos {
     background-color: #0f0f1a;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 100px;
+    min-height: 100vh;
 }
 
+/* ===========================
+   TIPOGRAFÍAS PERSONALIZADAS
+   =========================== */
 @font-face {
     font-family: 'Orbitron';
     src: url('../fonts/Orbitron-VariableFont_wght.ttf') format('woff2');
-    font-weight: 400;
-    font-weight: 500;
-    font-weight: 600;
+    font-weight: 400 600;
     font-style: normal;
     font-display: swap;
 }
@@ -18,40 +23,47 @@ body {
 @font-face {
     font-family: 'Roboto';
     src: url('../fonts/Roboto-VariableFont_wdth_wght.ttf') format('woff2');
-    font-weight: 400;
-    font-weight: 500;
-    font-weight: 600;
+    font-weight: 400 600;
     font-style: normal;
     font-display: swap;
 }
 
-h2,h1, h5{
+/* ===========================
+   ENCABEZADOS Y TEXTOS
+   =========================== */
+h1,
+h2,
+h5 {
     font-family: 'Orbitron', sans-serif;
     font-weight: 600;
     color: var(--neon-green);
 }
-p, h4{
+
+p,
+h4 {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     color: #ffffff;
 }
 
-.card-title{
+.card-title {
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
     color: #ffffff;
 }
 
-:root {
-    --electric-blue: #1E90FF;
-    --neon-green: #39FF14;
-}
+/* ===========================
+   VARIABLES DE COLOR
+   =========================== */
 
+/* ===========================
+   TARJETAS DE PRODUCTOS
+   =========================== */
 .card {
     background-color: #1a1a2e;
     transition: transform 0.3s, box-shadow 0.3s;
     height: 100%;
-    border:2px solid #500570;
+    border: 2px solid #500570;
 }
 
 .card img {
@@ -60,16 +72,21 @@ p, h4{
 
 .card:hover {
     transform: translateY(-15px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     box-shadow: 0 10px 20px rgba(55, 255, 20, 0.562);
 }
 
+/* ===========================
+   PRECIO
+   =========================== */
 .price {
     color: var(--neon-green);
     font-weight: bold;
     font-size: 1.2rem;
 }
 
+/* ===========================
+   BOTONES
+   =========================== */
 .btn-primary {
     background-color: #4361ee;
     border: none;
@@ -79,57 +96,47 @@ p, h4{
     background-color: #293c94;
 }
 
-.product-header {
-    background: linear-gradient(90deg, #4361ee, #f72585);
-    color: white;
-    padding: 3rem 0;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.fw-bold{
-    color: var(--neon-green);
-}
-
 .btn-gamer {
     background-color: #500570;
     border: none;
-    color: rgb(255, 255, 255);
-    transition: all 0.3s ease;
+    color: #fff;
+    transition: all 0.3s;
     font-weight: 700;
 }
 
 .btn-gamer:hover {
     background-color: #6f079c;
     transform: scale(1.05);
-    color: rgb(255, 255, 255);
 }
 
+/* ===========================
+   HERO SECTION
+   =========================== */
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
         url('../img/imgHero.webp') no-repeat center center;
     background-size: cover;
     padding: 7rem 0;
     text-align: center;
-
 }
 
-.bg-gamer{
+/* ===========================
+   CATEGORÍAS
+   =========================== */
+.bg-gamer {
     background-color: #1a1a2e;
     border-radius: 10px;
-    border:2px solid var(--neon-green)
-    
+    border: 2px solid var(--neon-green);
 }
 
-.border{
-    color: var(--neon-green);
+/* ===========================
+   OFFCANVAS CARRITO
+   =========================== */
+.offcanvas {
+    background-color: #24243f;
+    border: 2px solid var(--neon-green);
 }
 
-.offcanvas{
-    border: #39FF14;
-    background-color:#24243f ;
-}
-
-.btn-close{
+.btn-close {
     background-color: #ffffff;
 }

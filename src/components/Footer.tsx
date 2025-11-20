@@ -1,5 +1,6 @@
 import React from "react";
-import "../assets/css/stylesheet-footer.css";
+
+import { Link } from "react-router-dom";
 
 
 
@@ -63,14 +64,14 @@ const Footer: React.FC = () => {
             <small>&copy; 2025 Level-Up. Todos los derechos reservados</small>
             <ul className="list-inline mt-2">
               <li className="list-inline-item">
-                <a href="/terminos-y-privacidad" className="text-white me-3">
+                <Link to="/terminos-y-privacidad" className="text-white me-3">
                   <i>Privacidad</i>
-                </a>
+                </Link>
               </li>
               <li className="list-inline-item">
-                <a href="/terminos-y-condiciones" className="text-white me-3">
+                <Link to="/terminos-y-condiciones" className="text-white me-3">
                   <i>Términos</i>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

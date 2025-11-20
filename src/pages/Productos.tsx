@@ -1,17 +1,7 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
 import "../assets/css/stylesheet-productos.css"
-import "../assets/css/stylesheet-footer.css"
-import "../assets/css/stylesheet-nav-bar-custom.css"
-
 export default function Productos() {
   return (
     <div className="profileproductos">
-
-      {/* NAVBAR */}
-      <Navbar />
-
       {/* HERO */}
       <section className="hero-section">
         <div className="container">
@@ -67,9 +57,6 @@ export default function Productos() {
           </div>
         </div>
       </div>
-
-      {/* FOOTER */}
-      <Footer />
     </div>
   );
 }

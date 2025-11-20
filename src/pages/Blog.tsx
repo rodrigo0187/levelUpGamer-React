@@ -1,20 +1,8 @@
-import React from "react";
-
-import "../css/bootstrap.min.css";
-import "../css/stylesheet-general.css";
-import "../css/stylesheet-blog.css";
-import "../css/stylesheet-navbar.css";
-import "../css/stylesheet-footer.css";
-
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import "../assets/css/stylesheet-blog.css";
 
 export default function Blog() {
   return (
     <div className="page-container profileblog">
-      {/* Navbar */}
-      <Navbar />
-
       {/* HERO SECTION */}
       <section className="hero-section">
         <div className="container">
@@ -56,9 +44,6 @@ export default function Blog() {
           </a>
         </article>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
