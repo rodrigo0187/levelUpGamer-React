@@ -13,6 +13,8 @@ import InicioSesion from "./pages/inicio-sesion";
 import NotFound from "./components/NotFound";
 import Perfil from "./pages/perfil";
 import VermiPerfil from "./pages/ver-Mi-perfil";
+import TerminosYCondiciones from "./pages/terminos-y-condiciones";
+import PoliticaYPrivacidad from "./pages/politica-y-privacidad";
 // CSS GLOBAL REAL
 import "./assets/css/stylesheet-html-body.css";
 import "./assets/css/stylesheet-general.css";
@@ -46,6 +48,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/ver-mi-Perfil" element={<VermiPerfil />} />
+        <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
+        <Route path="/terminos-y-privacidad" element={<PoliticaYPrivacidad />} />
       </Routes>
 
       <Footer />

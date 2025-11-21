@@ -1,34 +1,53 @@
-
-html {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  background-color: #0f0f1a;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.termino{
-text-align: center;
-}
-@font-face {
-    font-family: 'Orbitron';
-    src: url('../fonts/Orbitron-VariableFont_wght.ttf')format('truetype');
-}
-@font-face {
-    font-family: 'Roboto';
-    src: url('../fonts/Roboto-VariableFont_wdth_wght.ttf')format('truetype');
+.termino {
+  text-align: center;
 }
 
-h2{
-    font-family: 'Orbitron',sans-serif;
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../fonts/Orbitron-VariableFont_wght.ttf')format('truetype');
 }
-p{
-font-family: 'Roboto',sans-serif;
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-VariableFont_wdth_wght.ttf')format('truetype');
 }
-p a{
+
+p {
+  font-family: 'Roboto', sans-serif;
+}
+
+p a {
   text-decoration: none;
-  color:#BC13FE;
+  color: #BC13FE;
 
 }
 
+.profileterminosycondiciones h2 {
+  color: #39FF14;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.profileterminosycondiciones {
+  font-size: 16px;
+}
+
+.profileterminosycondiciones header {
+  text-align: "center";
+  padding: "20px";
+  background: "#222";
+  color: "#fff";
+
+}
+
+.profileterminosycondiciones h1,
+p {
+  text-align: center;
+}
+
+.profileterminosycondiciones main {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}

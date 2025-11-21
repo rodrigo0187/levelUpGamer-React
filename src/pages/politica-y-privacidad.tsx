@@ -25,31 +25,37 @@ export default function PoliticaPrivacidad() {
 
           <h2>2. Datos que recopilamos</h2>
           <ul>
-            <li><strong>Datos de contacto:</strong> nombre, correo electrónico...</li>
-            <li><strong>Datos de la cuenta:</strong> nombre de usuario...</li>
-            <li><strong>Datos de compra:</strong> historial de pedidos...</li>
-            <li><strong>Datos técnicos:</strong> IP, navegador...</li>
+            <p>
+              <strong>Datos de contacto:</strong> nombre, correo electrónico... <br />
+              <strong>Datos de la cuenta:</strong> nombre de usuario... <br />
+              <strong>Datos de compra:</strong> historial de pedidos... <br />
+              <strong>Datos técnicos:</strong> IP, navegador...
+            </p>
           </ul>
-
+          {/* uso de los datos */}
           <h2>3. Uso de los datos</h2>
-          <p>Utilizamos tus datos para:</p>
           <ul>
-            <li>Procesar y entregar tus pedidos.</li>
-            <li>Ofrecer soporte al cliente.</li>
-            <li>Enviar notificaciones.</li>
+            <p>
+              Procesar y entregar tus pedidos. <br />
+              Ofrecer soporte al cliente. <br />
+              Enviar notificaciones.
+            </p>
           </ul>
-
-          <h2>4. Compartición de datos</h2>
+          {/* datos */}
+          <h2>4. Datos</h2>
           <p>No vendemos tus datos personales...</p>
-
+          {/* seguridad */}
           <h2>5. Seguridad</h2>
           <p>Protegemos tu información utilizando medidas técnicas...</p>
 
+          {/* Derecho del usuario */}
           <h2>6. Derechos del usuario</h2>
           <ul>
-            <li>Acceder a tus datos.</li>
-            <li>Solicitar corrección o eliminación.</li>
-            <li>Oponerte a marketing.</li>
+            <p>
+              Acceder a tus datos. <br />
+              Solicitar corrección o eliminación. <br />
+              Oponerte a marketing.
+            </p>
           </ul>
 
           <h2>7. Cookies</h2>
@@ -65,6 +71,6 @@ export default function PoliticaPrivacidad() {
           </p>
         </article>
       </main>
-    </div>
+    </div >
   );
 }

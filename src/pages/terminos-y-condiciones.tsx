@@ -3,18 +3,11 @@ import "../assets/css/stylesheet-termino-y-condiciones.css"
 
 const TerminosYPrivacidad: React.FC = () => {
   return (
-    <div className="profileterminosyprivacidad page-container">
+    <div className="profileterminosycondiciones page-container">
 
       {/* Encabezado */}
-      <header
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          background: "#222",
-          color: "#fff",
-        }}
-      >
-        <h1>Términos y Privacidad</h1>
+      <header>
+        <h1>Términos y Condiciones</h1>
         <p>Última actualización: 13 de Septiembre de 2025</p>
       </header>
 
