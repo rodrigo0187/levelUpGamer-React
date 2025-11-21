@@ -1,6 +1,10 @@
+import React, { useEffect } from 'react';
 import "../assets/css/stylesheet-politica-privacidad.css";
 
-export default function PoliticaPrivacidad() {
+const PoliticaPrivacidad: React.FC = () => {
+  useEffect(() => {
+    document.title = "Politica y Privacidad - Level Up Gamer";
+  }, []);
   return (
     <div className="profilepoliticaprivacidad">
 
@@ -74,3 +78,4 @@ export default function PoliticaPrivacidad() {
     </div >
   );
 }
+export default PoliticaPrivacidad;

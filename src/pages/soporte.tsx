@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../assets/css/stylesheet-formulario-soporte.css";
 
-export default function Soporte() {
+const Soporte: React.FC = () => {
+  useEffect(() => {
+    document.title = "Soporte - Level Up Gamer";
+  }, []);
+
   return (
     <div className="profilesoporte page-container">
 
@@ -62,3 +66,4 @@ export default function Soporte() {
     </div>
   );
 }
+export default Soporte;

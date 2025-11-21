@@ -1,6 +1,11 @@
+import React, { useEffect } from "react";
 import "../assets/css/stylesheet-blog.css";
 
-export default function Blog() {
+const Blog: React.FC = () => {
+  useEffect(() => {
+    document.title = "Blog & Noticias Gamer -Level Up Gamer";
+  })
+
   return (
     <div className="page-container profileblog">
       {/* HERO SECTION */}
@@ -47,3 +52,4 @@ export default function Blog() {
     </div>
   );
 }
+export default Blog;

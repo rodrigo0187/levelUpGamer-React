@@ -1,5 +1,10 @@
+import React, { useEffect } from "react";
 import "../assets/css/stylesheet-productos.css"
-export default function Productos() {
+
+const Productos: React.FC = () => {
+  useEffect(() => {
+    document.title = "Productos - Level Up Gamer";
+  }, []);
   return (
     <div className="profileproductos">
       {/* HERO */}
@@ -60,3 +65,4 @@ export default function Productos() {
     </div>
   );
 }
+export default Productos;

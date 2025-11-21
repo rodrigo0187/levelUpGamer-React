@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/stylesheet-inicio-sesion.css";
 
 interface Usuario {
@@ -8,6 +8,9 @@ interface Usuario {
 }
 
 const InicioSesion: React.FC = () => {
+  useEffect(() => {
+    document.title = "Inicio de sesion - Level Up Gamer";
+  }, []);
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
   const [errorMsg, setErrorMsg] = useState("");

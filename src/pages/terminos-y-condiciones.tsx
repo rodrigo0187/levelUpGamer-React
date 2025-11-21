@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../assets/css/stylesheet-termino-y-condiciones.css"
 
 const TerminosYPrivacidad: React.FC = () => {
+  useEffect(() => {
+    document.title = "Términos y Condiciones - Level Up Gamer";
+  }, []);
   return (
     <div className="profileterminosycondiciones page-container">
 

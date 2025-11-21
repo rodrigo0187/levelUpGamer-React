@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../assets/css/stylesheet-sobre-nosotros.css";
 
 // Imágenes
@@ -7,6 +7,9 @@ import imgHero2 from "../assets/img/imgHero2.jpg";
 import imgHero3 from "../assets/img/imgHero3.jpg";
 
 const SobreNosotros: React.FC = () => {
+  useEffect(() => {
+    document.title = "Sobre Nosotros - Level Up Gamer";
+  }, []);
   const tarjetas = [
     {
       titulo: "¿Quiénes Somos?",

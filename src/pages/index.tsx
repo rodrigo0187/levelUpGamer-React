@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "../assets/css/stylesheet-index.css";
 
@@ -13,6 +13,9 @@ import Slide5 from "../assets/img/CarouselSlide5.jpg";
 import JuegosMesa from "../assets/img/categorias-productos/JuegosDeMesa.webp";
 
 const Index: React.FC = () => {
+    useEffect(() => {
+        document.title = "Level Up Gamer - Tienda Gamer Online";
+    })
     return (
         <div className="profileindex">
 

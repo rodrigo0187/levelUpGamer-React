@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/stylesheet-registro.css"; // Tu CSS actual
 
 interface Usuario {
@@ -9,6 +9,9 @@ interface Usuario {
 }
 
 const Registro: React.FC = () => {
+  useEffect(() => {
+    document.title = "Registro - Level Up Gamer";
+  }, [])
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [repeatEmail, setRepeatEmail] = useState("");
@@ -167,5 +170,4 @@ const Registro: React.FC = () => {
     </div>
   );
 };
-
 export default Registro;
