@@ -1,23 +1,36 @@
 /* ===========================
-   ESTILOS DEL CONTENEDOR RAÍZ
+   VARIABLES GLOBALES
    =========================== */
-.profileproductos {
-
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 0;
-    min-height: 100vh;
-    margin-top: 0;
+:root {
+    --neon-green: #39ff14;
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #24243f;
+    --accent-purple: #500570;
+    --accent-purple-hover: #6f079c;
+    --primary-blue: #4361ee;
+    --primary-blue-hover: #293c94;
+    --text-white: #ffffff;
 }
 
 /* ===========================
-   TIPOGRAFÍAS PERSONALIZADAS
+   CONTENEDOR GENERAL
+   =========================== */
+.profileproductos {
+    color: var(--text-white);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin-top: 0;
+    padding-top: 0;
+    /* background-color: #0d0d19; */
+}
+
+/* ===========================
+   TIPOGRAFÍAS
    =========================== */
 @font-face {
     font-family: 'Orbitron';
     src: url('../fonts/Orbitron-VariableFont_wght.ttf') format('woff2');
     font-weight: 400 600;
-    font-style: normal;
     font-display: swap;
 }
 
@@ -25,88 +38,100 @@
     font-family: 'Roboto';
     src: url('../fonts/Roboto-VariableFont_wdth_wght.ttf') format('woff2');
     font-weight: 400 600;
-    font-style: normal;
     font-display: swap;
 }
 
 /* ===========================
-   ENCABEZADOS Y TEXTOS
+   TITULOS Y TEXTOS
    =========================== */
 h1,
 h2,
 h5 {
     font-family: 'Orbitron', sans-serif;
     font-weight: 600;
-    color: var(--neon-green);
+    color: var(--neon-green) !important;
 }
 
-p,
-h4 {
+p {
     font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    color: #ffffff;
+    color: #e0e0e0;
+    line-height: 1.6;
 }
 
+h4,
 .card-title {
     font-family: 'Roboto', sans-serif;
+    color: #1a1a2e;
     font-weight: 600;
-    color: #ffffff;
 }
 
 /* ===========================
-   VARIABLES DE COLOR
+   TARJETAS DE PRODUCTO
    =========================== */
-
-/* ===========================
-   TARJETAS DE PRODUCTOS
-   =========================== */
+/* Tarjeta de producto mejorada */
+/* Tarjetas transparentes estilo glassmorphism gamer */
 .card {
-    background-color: #1a1a2e;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: rgba(26, 0, 46, 0.35) !important;
+    /* Morado oscuro transparente */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 2px solid rgba(180, 0, 255, 0.35);
+    border-radius: 14px;
+    box-shadow: 0 0 18px rgba(120, 0, 255, 0.35);
+    transition: all 0.3s ease;
     height: 100%;
-    border: 2px solid #500570;
 }
 
+/* Imagen uniforme y moderna */
 .card img {
-    border: 30px solid #1a1a2e;
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
 }
 
+/* Hover super gamer */
 .card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 10px 20px rgba(55, 255, 20, 0.562);
+    transform: translateY(-10px);
+    box-shadow: 0 0 35px rgba(170, 0, 255, 0.6);
+    border-color: rgba(200, 0, 255, 0.9);
 }
+
+
 
 /* ===========================
    PRECIO
    =========================== */
 .price {
-    color: var(--neon-green);
+    color: var(--neon-green) !important;
+    font-size: 1.3rem;
     font-weight: bold;
-    font-size: 1.2rem;
 }
 
 /* ===========================
    BOTONES
    =========================== */
+
 .btn-primary {
-    background-color: #4361ee;
+    background-color: var(--primary-blue) !important;
     border: none;
 }
 
 .btn-primary:hover {
-    background-color: #293c94;
+    background-color: var(--primary-blue-hover) !important;
 }
 
 .btn-gamer {
-    background-color: #500570;
+    background-color: var(--accent-purple);
     border: none;
-    color: #fff;
-    transition: all 0.3s;
+    color: var(--text-white) !important;
     font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .btn-gamer:hover {
-    background-color: #6f079c;
+    background-color: var(--accent-purple-hover);
     transform: scale(1.05);
 }
 
@@ -115,29 +140,47 @@ h4 {
    =========================== */
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        url('../img/imgHero.webp') no-repeat center center;
-    background-size: cover;
+        url('../img/imgHero.webp') center/cover no-repeat;
     padding: 7rem 0;
     text-align: center;
+    border-bottom: 2px solid var(--neon-green) !important;
 }
 
 /* ===========================
    CATEGORÍAS
    =========================== */
 .bg-gamer {
-    background-color: #1a1a2e;
-    border-radius: 10px;
-    border: 2px solid var(--neon-green);
+    background-color: var(--primary-bg) !important;
+    border-radius: 12px;
+    border: 2px solid var(--neon-green) !important;
+    padding: 1rem;
 }
 
 /* ===========================
-   OFFCANVAS CARRITO
+   OFFCANVAS (Carrito)
    =========================== */
 .offcanvas {
-    background-color: #24243f;
-    border: 2px solid var(--neon-green);
+    background-color: var(--secondary-bg) !important;
+    border-left: 2px solid var(--neon-green) !important;
 }
 
 .btn-close {
-    background-color: #ffffff;
+    background-color: var(--text-white) !important;
+}
+
+/* ===========================
+   RESPONSIVIDAD
+   =========================== */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section {
+        padding: 4rem 1rem;
+    }
 }

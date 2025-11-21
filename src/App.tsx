@@ -49,7 +49,7 @@ function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/ver-mi-Perfil" element={<VermiPerfil />} />
         <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
-        <Route path="/terminos-y-privacidad" element={<PoliticaYPrivacidad />} />
+        <Route path="/politica-y-privacidad" element={<PoliticaYPrivacidad />} />
       </Routes>
 
       <Footer />

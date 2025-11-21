@@ -10,7 +10,7 @@ const TerminosYPrivacidad: React.FC = () => {
 
       {/* Encabezado */}
       <header>
-        <h1>Términos y Condiciones</h1>
+        <h1>Término y Condiciones</h1>
         <p>Última actualización: 13 de Septiembre de 2025</p>
       </header>
 

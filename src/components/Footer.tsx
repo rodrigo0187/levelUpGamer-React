@@ -64,13 +64,13 @@ const Footer: React.FC = () => {
             <small>&copy; 2025 Level-Up. Todos los derechos reservados</small>
             <ul className="list-inline mt-2">
               <li className="list-inline-item">
-                <Link to="/terminos-y-privacidad" className="text-white me-3">
-                  <i>Privacidad</i>
+                <Link to="/politica-y-privacidad" className="text-white me-3">
+                  <i>Política & Privacidad</i>
                 </Link>
               </li>
               <li className="list-inline-item">
                 <Link to="/terminos-y-condiciones" className="text-white me-3">
-                  <i>Términos</i>
+                  <i>Término & Condiciones</i>
                 </Link>
               </li>
             </ul>

@@ -2,7 +2,7 @@
    Ajuste global para navbar fixed-top
 ============================== */
 body {
-    padding-top: 15px;
+    padding-top: 20px;
     /* eliminamos el padding extra */
     margin: 0;
 }
