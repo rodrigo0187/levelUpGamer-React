@@ -196,8 +196,7 @@ const Productos: React.FC = () => {
             {categories.map(cat => (
               <button
                 key={cat.id}
-                className={`btn btn-gamer ${filter === cat.id ? "active" : ""
-                  }`}
+                className={`btn-category ${filter === cat.id ? "active" : ""}`}
                 onClick={() => setFilter(cat.id)}
               >
                 {cat.name}
@@ -219,7 +218,7 @@ const Productos: React.FC = () => {
                   <p className="card-text">{p.desc}</p>
                   <p className="fw-bold">${p.price.toLocaleString()}</p>
                   <button
-                    className="btn btn-gamer mt-auto"
+                    className="btn-add mt-auto"
                     onClick={() => addToCart(p.code)}
                   >
                     Agregar
