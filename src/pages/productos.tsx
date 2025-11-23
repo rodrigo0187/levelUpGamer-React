@@ -44,8 +44,8 @@ const products = [
     details: ["Jugadores: 2-5", "Edad: 7+"],
   },
   {
-    code: "CO001",
-    category: "CO",
+    code: "AC002",
+    category: "AC",
     name: "Control Xbox series",
     price: 59900,
     img: xbox,
@@ -90,7 +90,7 @@ const products = [
   },
   {
     code: "MS001",
-    category: "MS",
+    category: "MP",
     name: "Hero Mousepad Razer Goliathus",
     price: 49900,
     img: mousepadRazer,
@@ -99,7 +99,7 @@ const products = [
   },
   {
     code: "MP001",
-    category: "MP",
+    category: "MS",
     name: "Mouse Gamer Logitech G502",
     price: 29990,
     img: mouseLogitech,

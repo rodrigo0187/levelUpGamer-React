@@ -1,55 +1,186 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/stylesheet-blog.css";
 
-const Blog: React.FC = () => {
+// TYPES
+
+type FeedItem = {
+  title: string;
+  link: string;
+  description: string;
+  pubDate: string;
+  timestamp: number;
+  source: string;
+  image: string;
+};
+// LISTA DE RSS
+const RSS_FEEDS = [
+  "https://feeds.ign.com/ign/all",
+  "https://www.levelup.com/rss/news",
+  "https://kotaku.com/rss",
+  "https://www.3djuegos.com/feeds/rss",
+  "https://www.eurogamer.net/feed"
+];
+
+// IMAGEN POR DEFECTO
+
+const PLACEHOLDER =
+  "https://placehold.co/800x500/1a1a2e/58ff33?text=Level+Up+News";
+
+
+// EXTRAER IMAGEN DESDE <img> DEL RSS
+
+function extractImageFromDescription(html: string): string | null {
+  try {
+    const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+// FUNCIÓN PARA OBTENER RSS DESDE BACKEND
+// localhost:3001/api/rss?url=...
+
+async function fetchFeed(url: string): Promise<FeedItem[]> {
+  try {
+    const resp = await fetch(
+      `http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`
+    );
+
+    if (!resp.ok) throw new Error("Proxy RSS error");
+
+    const data = await resp.json();
+
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, "application/xml");
+    const items = Array.from(xml.querySelectorAll("item"));
+
+    const sourceHost = new URL(url).hostname.replace("www.", "");
+
+    return items.map((it) => {
+      const title = it.querySelector("title")?.textContent?.trim() || "Sin título";
+      const link = it.querySelector("link")?.textContent?.trim() || "#";
+      const description =
+        it.querySelector("description")?.textContent?.trim() || "";
+      const pubDate = it.querySelector("pubDate")?.textContent?.trim() || "";
+
+      const media =
+        it.getElementsByTagNameNS("*", "content")[0]?.getAttribute("url") ||
+        it.querySelector("enclosure")?.getAttribute("url") ||
+        extractImageFromDescription(description) ||
+        PLACEHOLDER;
+
+      const dateObj = pubDate ? new Date(pubDate) : new Date(0);
+
+      return {
+        title,
+        link,
+        description,
+        pubDate,
+        timestamp: dateObj.getTime(),
+        source: sourceHost,
+        image: media
+      };
+    });
+  } catch (err) {
+    console.warn("fetchFeed error", url, err);
+    return [];
+  }
+}
+// COMPONENTE PRINCIPAL
+
+export default function Blog(): React.ReactElement {
+  const [items, setItems] = useState<FeedItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    document.title = "Blog & Noticias Gamer -Level Up Gamer";
-  })
+    document.title = "Blog & Noticias Gamer - Level Up Gamer";
+
+    let cancelled = false;
+
+    async function loadAll() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const results = await Promise.all(RSS_FEEDS.map(fetchFeed));
+
+        const merged = results
+          .flat()
+          .sort((a, b) => b.timestamp - a.timestamp)
+          .slice(0, 12);
+
+        if (!cancelled) setItems(merged);
+      } catch {
+        if (!cancelled) setError("No se pudieron cargar las noticias.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadAll();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="page-container profileblog">
-      {/* HERO SECTION */}
       <section className="hero-section">
         <div className="container">
           <h1 className="display-3 fw-bold">Blog & Noticias Gamer</h1>
-          <p className="display-6">
-            Novedades, guías y consejos para mejorar tu experiencia de juego.
-          </p>
+          <p className="display-6">Novedades, guías y tips gamer actualizados.</p>
         </div>
       </section>
 
-      {/* CONTENEDOR DE NOTICIAS */}
-      <section id="news-container" aria-live="polite">
-        {/* Ejemplo estático (puedes reemplazarlo luego con posts dinámicos) */}
-        <article className="news-item mb-4 p-3 border rounded">
-          <h2 className="h5">
-            <a
-              href="#"
-              className="news-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Título de ejemplo: Lanzamiento XYZ
-            </a>
-          </h2>
+      <main className="container py-4">
+        {loading && <p className="muted">Cargando noticias...</p>}
+        {error && <p className="text-danger">{error}</p>}
 
-          <p className="meta text-muted small">
-            Publicado:{" "}
-            <time dateTime="2025-09-11">11 Sept 2025</time> • Fuente:{" "}
-            <span className="source">Ejemplo</span>
-          </p>
+        <section id="news-list" className="news-grid">
+          {items.map((it, idx) => (
+            <article className="news-card" key={idx}>
+              <div className="news-image-wrapper">
+                <img
+                  src={it.image}
+                  alt={it.title}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = PLACEHOLDER;
+                  }}
+                />
+              </div>
 
-          <p className="excerpt">
-            Resumen breve de la noticia o guía. Aquí irá un extracto para captar
-            la atención del lector...
-          </p>
+              <div className="news-body">
+                <h2 className="news-title">
+                  <a href={it.link} target="_blank" rel="noopener noreferrer">
+                    {it.title}
+                  </a>
+                </h2>
 
-          <a href="#" className="read-more">
-            Leer más →
-          </a>
-        </article>
-      </section>
+                <p className="meta small">
+                  Fecha:{" "}
+                  {it.pubDate
+                    ? new Date(it.pubDate).toLocaleDateString("es-ES")
+                    : "Desconocida"}
+                  {" • "}
+                  <span className="source">{it.source}</span>
+                </p>
+
+                <p className="excerpt">
+                  {(it.description || "")
+                    .replace(/(<([^>]+)>)/gi, "")
+                    .slice(0, 200)}
+                  ...
+                </p>
+
+                <a href={it.link} target="_blank" rel="noopener noreferrer">
+                  Leer más →
+                </a>
+              </div>
+            </article>
+          ))}
+        </section>
+      </main>
     </div>
   );
 }
-export default Blog;
