@@ -1,45 +1,82 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/stylesheet-perfil.css"
+import "../assets/css/stylesheet-perfil.css";
+
+interface Compra {
+  producto: string;
+  fecha: string;
+}
+
+interface Usuario {
+  nombre: string;
+  email: string;
+  avatar?: string;
+}
 
 const Perfil: React.FC = () => {
-  const [username, setUsername] = useState("Usuario");
-  const [email, setEmail] = useState("usuario@correo.com");
+  const [usuario, setUsuario] = useState<Usuario>({ nombre: "Usuario", email: "usuario@correo.com" });
   const [avatar, setAvatar] = useState("/img/icon/LOGO.ico");
-  const [posts, setPosts] = useState<string[]>([]);
-  const [compras, setCompras] = useState<string[]>([]); // Nuevo estado para compras
+  const [compras, setCompras] = useState<Compra[]>([]);
+  const [historial, setHistorial] = useState<string[]>([]);
+  const [error, setError] = useState("");
 
   const token = JSON.parse(localStorage.getItem("user") || "{}")?.token;
 
+  // ===== Cargar perfil desde backend =====
   useEffect(() => {
+    if (!token) {
+      window.location.href = "/inicioSesion";
+      return;
+    }
+
     const fetchPerfil = async () => {
       try {
         const resp = await fetch("http://localhost:3001/api/perfil", {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await resp.json();
 
         if (resp.ok) {
-          setUsername(data.usuario.nombre);
-          setEmail(data.usuario.email);
-          setAvatar(data.usuario.avatar || "/img/icon/LOGO.ico");
-          setCompras(data.compras || []);
+          const { usuario: u, compras: c } = data;
+          setUsuario({ nombre: u.nombre, email: u.email, avatar: u.avatar });
+          setAvatar(u.avatar || "/img/icon/LOGO.ico");
+          setCompras(c || []);
+
+          // Historial inicial
+          const historialCompras = c?.map((compra: Compra) => `Compra realizada: ${compra.producto}`) || [];
+          setHistorial([...historialCompras, "Accedió a su cuenta desde un nuevo dispositivo"]);
+
+          // Guardar en localStorage
+          localStorage.setItem("perfil", JSON.stringify({
+            compras: c || [],
+            historial: [...historialCompras, "Accedió a su cuenta desde un nuevo dispositivo"]
+          }));
         } else {
-          console.error("Error al obtener perfil:", data.message);
+          setError(data.message || "No se pudo cargar el perfil");
         }
       } catch (err) {
         console.error("Error de conexión al backend:", err);
+        setError("Error de conexión con el servidor");
       }
     };
 
     fetchPerfil();
-
-    // Datos de ejemplo para historial
-    setPosts([
-      "Comentario en: Review de teclados mecánicos",
-      "Compra realizada: Mouse Gamer RGB",
-      "Accedió a su cuenta desde un nuevo dispositivo",
-    ]);
   }, [token]);
+
+  // ===== Actualizar desde localStorage en tiempo real =====
+  useEffect(() => {
+    const updateFromStorage = () => {
+      const storedPerfil = JSON.parse(localStorage.getItem("perfil") || "{}");
+      if (storedPerfil.compras) setCompras(storedPerfil.compras);
+      if (storedPerfil.historial) setHistorial(storedPerfil.historial);
+    };
+
+    // Ejecutar al inicio
+    updateFromStorage();
+
+    // Escuchar cambios periódicamente (cada 1s)
+    const interval = setInterval(updateFromStorage, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -58,8 +95,8 @@ const Perfil: React.FC = () => {
             width={120}
             height={120}
           />
-          <h2>{username}</h2>
-          <p>{email}</p>
+          <h2>{usuario.nombre}</h2>
+          <p>{usuario.email}</p>
         </div>
 
         <hr />
@@ -75,10 +112,12 @@ const Perfil: React.FC = () => {
 
         <hr />
 
+        {error && <p className="text-danger text-center">{error}</p>}
+
         <h5>Historial de actividad</h5>
-        <ul id="userPosts">
-          {posts.length > 0 ? (
-            posts.map((post, index) => (
+        <ul id="userPosts" className="list-group">
+          {historial.length > 0 ? (
+            historial.map((post, index) => (
               <li key={index} className="list-group-item">{post}</li>
             ))
           ) : (
@@ -89,10 +128,12 @@ const Perfil: React.FC = () => {
         <hr />
 
         <h5>Compras realizadas</h5>
-        <ul id="userCompras">
+        <ul id="userCompras" className="list-group">
           {compras.length > 0 ? (
-            compras.map((compra, index) => (
-              <li key={index} className="list-group-item">{compra}</li>
+            compras.map((c, index) => (
+              <li key={index} className="list-group-item">
+                {c.producto} - {c.fecha}
+              </li>
             ))
           ) : (
             <li className="list-group-item text-muted">No hay compras registradas</li>
