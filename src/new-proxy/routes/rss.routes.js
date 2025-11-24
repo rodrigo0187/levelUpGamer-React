@@ -1,7 +1,9 @@
-const express = require("express");
+// routes/rss.routes.js
+import express from "express";
+import { getRSS } from "../controllers/rss.controller.js";
+
 const router = express.Router();
-const rssController = require("../controllers/rss.controller");
 
-router.get("/rss", rssController.getRSS);
+router.get("/rss", getRSS);
 
-module.exports = router;
+export default router;

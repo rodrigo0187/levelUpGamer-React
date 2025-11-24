@@ -1,8 +1,17 @@
 import mysql from "mysql2/promise";
-
-export const db = await mysql.createPool({
+import dotenv from "dotenv";
+/*export const db = await mysql.createPool({
   host: "localhost",
   user: "root",
   password: "",       // Si tienes contraseña, agrégala
   database: "levelupgamer",
+});*/
+
+dotenv.config();
+// Nueva configuración usando .env
+export const db = await mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });

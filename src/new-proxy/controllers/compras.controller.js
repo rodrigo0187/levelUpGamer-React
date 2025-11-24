@@ -1,7 +1,7 @@
 // controllers/compras.controller.js
-const db = require("../db.js");
+import { db } from "../db.js";
 
-exports.comprarProducto = async (req, res) => {
+export const comprarProducto = async (req, res) => {
   const { idProducto } = req.body;
   const idUsuario = req.user.id;
 
@@ -12,7 +12,7 @@ exports.comprarProducto = async (req, res) => {
     );
     res.json({ message: "Compra realizada con éxito" });
   } catch (err) {
-    console.error(err);
+    console.error("Error en comprarProducto:", err);
     res.status(500).json({ message: "Error al procesar la compra" });
   }
 };

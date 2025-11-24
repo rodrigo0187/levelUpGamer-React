@@ -66,7 +66,7 @@ export default function Registro() {
       setNombre(""); setEmail(""); setRepeatEmail(""); setTelefono(""); setPsw(""); setPswRepeat("");
 
       // Redirección usando React Router
-      setTimeout(() => navigate("/inicioSesion"), 1500);
+      setTimeout(() => navigate("/inicio-sesion"), 1500);
 
     } catch (err) {
       setErrores({ general: "Error de conexión con el servidor." });

@@ -1,14 +1,16 @@
-const express = require("express");
+// routes/posts.routes.js
+import express from "express";
+import { getPosts, createPost, getPostById, deletePost } from "../controllers/posts.controller.js";
+import verifyToken from "../middlewares/verifyToken.js"; // Asegúrate que tu middleware también use export default o export nombrado
+
 const router = express.Router();
-const postsController = require("../controllers/posts.controller");
-const verifyToken = require("../middlewares/verifyToken");
 
 // Rutas públicas
-router.get("/posts", postsController.getPosts);
-router.get("/posts/:id", postsController.getPostById);
+router.get("/posts", getPosts);
+router.get("/posts/:id", getPostById);
 
 // Crear post (requiere token)
-router.post("/posts", verifyToken, postsController.createPost);
+router.post("/posts", verifyToken, createPost);
 
 // Eliminar post (solo admin)
 router.delete(
@@ -20,7 +22,7 @@ router.delete(
     }
     next();
   },
-  postsController.deletePost
+  deletePost
 );
 
-module.exports = router;
+export default router;
