@@ -19,9 +19,8 @@ const Perfil: React.FC = () => {
   const [historial, setHistorial] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  const token = JSON.parse(localStorage.getItem("user") || "{}")?.token;
+  const token: string | undefined = JSON.parse(localStorage.getItem("user") || "{}")?.token;
 
-  // ===== Cargar perfil desde backend =====
   useEffect(() => {
     if (!token) {
       window.location.href = "/inicioSesion";
@@ -41,15 +40,8 @@ const Perfil: React.FC = () => {
           setAvatar(u.avatar || "/img/icon/LOGO.ico");
           setCompras(c || []);
 
-          // Historial inicial
-          const historialCompras = c?.map((compra: Compra) => `Compra realizada: ${compra.producto}`) || [];
+          const historialCompras: string[] = c?.map((compra: Compra) => `Compra realizada: ${compra.producto}`) || [];
           setHistorial([...historialCompras, "Accedió a su cuenta desde un nuevo dispositivo"]);
-
-          // Guardar en localStorage
-          localStorage.setItem("perfil", JSON.stringify({
-            compras: c || [],
-            historial: [...historialCompras, "Accedió a su cuenta desde un nuevo dispositivo"]
-          }));
         } else {
           setError(data.message || "No se pudo cargar el perfil");
         }
@@ -61,22 +53,6 @@ const Perfil: React.FC = () => {
 
     fetchPerfil();
   }, [token]);
-
-  // ===== Actualizar desde localStorage en tiempo real =====
-  useEffect(() => {
-    const updateFromStorage = () => {
-      const storedPerfil = JSON.parse(localStorage.getItem("perfil") || "{}");
-      if (storedPerfil.compras) setCompras(storedPerfil.compras);
-      if (storedPerfil.historial) setHistorial(storedPerfil.historial);
-    };
-
-    // Ejecutar al inicio
-    updateFromStorage();
-
-    // Escuchar cambios periódicamente (cada 1s)
-    const interval = setInterval(updateFromStorage, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -114,31 +90,50 @@ const Perfil: React.FC = () => {
 
         {error && <p className="text-danger text-center">{error}</p>}
 
-        <h5>Historial de actividad</h5>
-        <ul id="userPosts" className="list-group">
-          {historial.length > 0 ? (
-            historial.map((post, index) => (
-              <li key={index} className="list-group-item">{post}</li>
-            ))
-          ) : (
-            <li className="list-group-item text-muted">No hay actividad registrada</li>
-          )}
-        </ul>
+        <button
+          className="btn btn-success mt-3"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#historialCanvas"
+        >
+          Ver Historial
+        </button>
+      </div>
 
-        <hr />
+      {/* Offcanvas Historial */}
+      <div className="offcanvas offcanvas-end text-white" tabIndex={-1} id="historialCanvas">
+        <div className="offcanvas-header">
+          <h2 className="offcanvas-title">📝 Historial de Actividad</h2>
+          <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
 
-        <h5>Compras realizadas</h5>
-        <ul id="userCompras" className="list-group">
-          {compras.length > 0 ? (
-            compras.map((c, index) => (
-              <li key={index} className="list-group-item">
-                {c.producto} - {c.fecha}
-              </li>
-            ))
-          ) : (
-            <li className="list-group-item text-muted">No hay compras registradas</li>
-          )}
-        </ul>
+        <div className="offcanvas-body">
+          <ul className="list-group">
+            {historial.length > 0 ? (
+              historial.map((post: string, index: number) => (
+                <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                  {post}
+                </li>
+              ))
+            ) : (
+              <li className="list-group-item text-muted">No hay actividad registrada</li>
+            )}
+          </ul>
+
+          <hr />
+
+          <h5>Compras realizadas</h5>
+          <ul className="list-group">
+            {compras.length > 0 ? (
+              compras.map((c: Compra, index: number) => (
+                <li key={index} className="list-group-item">
+                  {c.producto} - {c.fecha}
+                </li>
+              ))
+            ) : (
+              <li className="list-group-item text-muted">No hay compras registradas</li>
+            )}
+          </ul>
+        </div>
       </div>
     </main>
   );
