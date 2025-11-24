@@ -9,13 +9,14 @@ interface Usuario {
 
 const InicioSesion: React.FC = () => {
   useEffect(() => {
-    document.title = "Inicio de sesion - Level Up Gamer";
+    document.title = "Inicio de sesión - Level Up Gamer";
   }, []);
+
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
 
@@ -29,17 +30,36 @@ const InicioSesion: React.FC = () => {
       return;
     }
 
-    const usuarios: Usuario[] = JSON.parse(localStorage.getItem("usuarios") || "[]");
-    const usuarioValido = usuarios.find(u => u.email === email && u.psw === psw);
+    try {
+      const resp = await fetch("http://localhost:3001/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, psw }),
+      });
 
-    if (usuarioValido) {
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        setErrorMsg(data.error || "Usuario o contraseña incorrecta.");
+        return;
+      }
+
       const nombreFormateado =
-        usuarioValido.nombre.charAt(0).toUpperCase() + usuarioValido.nombre.slice(1);
-      localStorage.setItem("user", JSON.stringify({ ...usuarioValido, nombre: nombreFormateado }));
+        data.usuario.nombre.charAt(0).toUpperCase() + data.usuario.nombre.slice(1);
+
+      // Guardar solo para mantener sesión en el navegador actual
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...data.usuario, nombre: nombreFormateado })
+      );
+
       alert(`Bienvenido ${nombreFormateado}`);
       window.location.href = "/perfil"; // Ajusta según tu router
-    } else {
-      setErrorMsg("Usuario o contraseña incorrecta.");
+
+    } catch (err) {
+      setErrorMsg("Error de conexión con el servidor.");
     }
   };
 
@@ -86,7 +106,6 @@ const InicioSesion: React.FC = () => {
             <button type="submit">Ingresar</button>
             <button type="button" className="cancelbtn" onClick={handleCancel}>Cancelar</button>
           </div>
-
 
           <div style={{ marginTop: "10px", textAlign: "center" }}>
             <label>

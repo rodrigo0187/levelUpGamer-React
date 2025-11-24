@@ -50,6 +50,8 @@ function App() {
         <Route path="/ver-mi-Perfil" element={<VermiPerfil />} />
         <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
         <Route path="/politica-y-privacidad" element={<PoliticaYPrivacidad />} />
+
+
       </Routes>
 
       <Footer />

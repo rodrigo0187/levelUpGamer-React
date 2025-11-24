@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/stylesheet-registro.css";
 
 export default function Registro() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Registro - Level Up Gamer";
   }, []);
@@ -16,23 +19,18 @@ export default function Registro() {
   const [errores, setErrores] = useState<Record<string, string>>({});
   const [msgExito, setMsgExito] = useState("");
 
+  // Validación de campos
   const validar = () => {
     const newErrors: Record<string, string> = {};
-
     const emailRegex = /^[a-zA-Z0-9._%+-]+@(duocuc\.cl|profesor\.duoc\.cl|gmail\.com)$/;
     const telRegex = /^\+569-\d{4}-\d{4}$/;
 
     if (!nombre) newErrors.nombre = "El nombre es obligatorio.";
-    if (!emailRegex.test(email))
-      newErrors.email = "Email inválido o dominio no permitido.";
-    if (email !== repeatEmail)
-      newErrors.repeatEmail = "Los emails no coinciden.";
-    if (telefono && !telRegex.test(telefono))
-      newErrors.telefono = "Formato esperado: +569-1234-5678";
-    if (psw.length < 4 || psw.length > 10)
-      newErrors.psw = "Debe tener entre 4 y 10 caracteres.";
-    if (psw !== pswRepeat)
-      newErrors.pswRepeat = "Las contraseñas no coinciden.";
+    if (!emailRegex.test(email)) newErrors.email = "Email inválido o dominio no permitido.";
+    if (email !== repeatEmail) newErrors.repeatEmail = "Los emails no coinciden.";
+    if (telefono && !telRegex.test(telefono)) newErrors.telefono = "Formato esperado: +569-1234-5678";
+    if (psw.length < 4 || psw.length > 10) newErrors.psw = "Debe tener entre 4 y 10 caracteres.";
+    if (psw !== pswRepeat) newErrors.pswRepeat = "Las contraseñas no coinciden.";
 
     return newErrors;
   };
@@ -48,37 +46,31 @@ export default function Registro() {
       return;
     }
 
-    // ENVIAR DATOS AL BACKEND
-    const resp = await fetch("http://localhost:3001/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nombre,
-        email,
-        telefono,
-        psw
-      })
-    });
+    try {
+      const resp = await fetch("http://localhost:3001/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, email, telefono, psw }),
+      });
 
-    const data = await resp.json();
+      const data = await resp.json();
 
-    if (!resp.ok) {
-      setErrores({ general: data.error || "Error en el registro" });
-      return;
+      if (!resp.ok) {
+        setErrores({ general: data.message || "Error en el registro" });
+        return;
+      }
+
+      setMsgExito("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+
+      // Limpiar formulario
+      setNombre(""); setEmail(""); setRepeatEmail(""); setTelefono(""); setPsw(""); setPswRepeat("");
+
+      // Redirección usando React Router
+      setTimeout(() => navigate("/inicioSesion"), 1500);
+
+    } catch (err) {
+      setErrores({ general: "Error de conexión con el servidor." });
     }
-
-    setMsgExito("✅ Registro exitoso. Ahora puedes iniciar sesión.");
-
-    setNombre("");
-    setEmail("");
-    setRepeatEmail("");
-    setTelefono("");
-    setPsw("");
-    setPswRepeat("");
-
-    setTimeout(() => {
-      window.location.href = "/inicioSesion";
-    }, 1500);
   };
 
   const inputClass = (campo: string) =>
@@ -89,9 +81,7 @@ export default function Registro() {
       <div className="registro-container">
         <h2 className="mb-4 text-center">Registro de Usuario</h2>
 
-        {errores.general && (
-          <p className="text-danger text-center">{errores.general}</p>
-        )}
+        {errores.general && <p className="text-danger text-center">{errores.general}</p>}
         {msgExito && <p className="text-success text-center">{msgExito}</p>}
 
         <form onSubmit={handleSubmit}>
@@ -104,9 +94,7 @@ export default function Registro() {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
-            {errores.nombre && (
-              <small className="text-danger">{errores.nombre}</small>
-            )}
+            {errores.nombre && <small className="text-danger">{errores.nombre}</small>}
           </div>
 
           {/* Email */}
@@ -118,9 +106,7 @@ export default function Registro() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errores.email && (
-              <small className="text-danger">{errores.email}</small>
-            )}
+            {errores.email && <small className="text-danger">{errores.email}</small>}
           </div>
 
           {/* Repetir Email */}
@@ -132,9 +118,7 @@ export default function Registro() {
               value={repeatEmail}
               onChange={(e) => setRepeatEmail(e.target.value)}
             />
-            {errores.repeatEmail && (
-              <small className="text-danger">{errores.repeatEmail}</small>
-            )}
+            {errores.repeatEmail && <small className="text-danger">{errores.repeatEmail}</small>}
           </div>
 
           {/* Teléfono */}
@@ -146,9 +130,7 @@ export default function Registro() {
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />
-            {errores.telefono && (
-              <small className="text-danger">{errores.telefono}</small>
-            )}
+            {errores.telefono && <small className="text-danger">{errores.telefono}</small>}
           </div>
 
           {/* Contraseña */}
@@ -160,9 +142,7 @@ export default function Registro() {
               value={psw}
               onChange={(e) => setPsw(e.target.value)}
             />
-            {errores.psw && (
-              <small className="text-danger">{errores.psw}</small>
-            )}
+            {errores.psw && <small className="text-danger">{errores.psw}</small>}
           </div>
 
           {/* Repetir Contraseña */}
@@ -174,14 +154,10 @@ export default function Registro() {
               value={pswRepeat}
               onChange={(e) => setPswRepeat(e.target.value)}
             />
-            {errores.pswRepeat && (
-              <small className="text-danger">{errores.pswRepeat}</small>
-            )}
+            {errores.pswRepeat && <small className="text-danger">{errores.pswRepeat}</small>}
           </div>
 
-          <button type="submit" className="btn btn-primary w-100 mt-3">
-            Registrar
-          </button>
+          <button type="submit" className="btn btn-primary w-100 mt-3">Registrar</button>
         </form>
       </div>
     </div>

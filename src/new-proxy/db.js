@@ -4,5 +4,5 @@ export const db = await mysql.createPool({
   host: "localhost",
   user: "root",
   password: "",       // Si tienes contraseña, agrégala
-  database: "blogDB",
+  database: "levelupgamer",
 });
