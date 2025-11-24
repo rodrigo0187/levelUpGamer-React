@@ -1,12 +1,14 @@
-const express = require("express");
-const cors = require("cors");
+// server.js
+import express from "express";
+import cors from "cors";
 
-const authRoutes = require("./routes/authRoutes");
-const postsRoutes = require("./routes/posts.routes");
-const rssRoutes = require("./routes/rss.routes");
-const compraRoutes = require("./routes/compra.routes");
+import authRoutes from "./routes/authRoutes.js";
+import postsRoutes from "./routes/posts.routes.js";
+import rssRoutes from "./routes/rss.routes.js";
+import compraRoutes from "./routes/compra.routes.js";
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 

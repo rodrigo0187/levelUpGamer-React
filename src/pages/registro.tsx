@@ -23,12 +23,12 @@ export default function Registro() {
   const validar = () => {
     const newErrors: Record<string, string> = {};
     const emailRegex = /^[a-zA-Z0-9._%+-]+@(duocuc\.cl|profesor\.duoc\.cl|gmail\.com)$/;
-    const telRegex = /^\+569-\d{4}-\d{4}$/;
+    const telRegex = /^\+569-\d{8}$/;
 
     if (!nombre) newErrors.nombre = "El nombre es obligatorio.";
     if (!emailRegex.test(email)) newErrors.email = "Email inválido o dominio no permitido.";
     if (email !== repeatEmail) newErrors.repeatEmail = "Los emails no coinciden.";
-    if (telefono && !telRegex.test(telefono)) newErrors.telefono = "Formato esperado: +569-1234-5678";
+    if (telefono && !telRegex.test(telefono)) newErrors.telefono = "Formato esperado: +569-12345678";
     if (psw.length < 4 || psw.length > 10) newErrors.psw = "Debe tener entre 4 y 10 caracteres.";
     if (psw !== pswRepeat) newErrors.pswRepeat = "Las contraseñas no coinciden.";
 

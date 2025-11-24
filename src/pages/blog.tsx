@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/stylesheet-blog.css";
 
-// TYPES
-
+// ===========================
+// TIPOS
+// ===========================
 type FeedItem = {
   title: string;
   link: string;
@@ -12,44 +13,35 @@ type FeedItem = {
   source: string;
   image: string;
 };
-// LISTA DE RSS
+
+// ===========================
+// CONFIGURACIÓN
+// ===========================
 const RSS_FEEDS = [
   "https://feeds.ign.com/ign/all",
   "https://www.levelup.com/rss/news",
   "https://kotaku.com/rss",
   "https://www.3djuegos.com/feeds/rss",
-  "https://www.eurogamer.net/feed"
+  "https://www.eurogamer.net/feed",
 ];
-
-// IMAGEN POR DEFECTO
 
 const PLACEHOLDER =
   "https://placehold.co/800x500/1a1a2e/58ff33?text=Level+Up+News";
 
-
-// EXTRAER IMAGEN DESDE <img> DEL RSS
-
+// ===========================
+// UTILIDADES
+// ===========================
 function extractImageFromDescription(html: string): string | null {
-  try {
-    const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    return match ? match[1] : null;
-  } catch {
-    return null;
-  }
+  const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return match ? match[1] : null;
 }
-// FUNCIÓN PARA OBTENER RSS DESDE BACKEND
-// localhost:3001/api/rss?url=...
 
 async function fetchFeed(url: string): Promise<FeedItem[]> {
   try {
-    const resp = await fetch(
-      `http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`
-    );
-
-    if (!resp.ok) throw new Error("Proxy RSS error");
+    const resp = await fetch(`http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`);
+    if (!resp.ok) throw new Error("Error al obtener RSS");
 
     const data = await resp.json();
-
     const parser = new DOMParser();
     const xml = parser.parseFromString(data.contents, "application/xml");
     const items = Array.from(xml.querySelectorAll("item"));
@@ -59,8 +51,7 @@ async function fetchFeed(url: string): Promise<FeedItem[]> {
     return items.map((it) => {
       const title = it.querySelector("title")?.textContent?.trim() || "Sin título";
       const link = it.querySelector("link")?.textContent?.trim() || "#";
-      const description =
-        it.querySelector("description")?.textContent?.trim() || "";
+      const description = it.querySelector("description")?.textContent?.trim() || "";
       const pubDate = it.querySelector("pubDate")?.textContent?.trim() || "";
 
       const media =
@@ -69,26 +60,20 @@ async function fetchFeed(url: string): Promise<FeedItem[]> {
         extractImageFromDescription(description) ||
         PLACEHOLDER;
 
-      const dateObj = pubDate ? new Date(pubDate) : new Date(0);
+      const timestamp = pubDate ? new Date(pubDate).getTime() : 0;
 
-      return {
-        title,
-        link,
-        description,
-        pubDate,
-        timestamp: dateObj.getTime(),
-        source: sourceHost,
-        image: media
-      };
+      return { title, link, description, pubDate, timestamp, source: sourceHost, image: media };
     });
   } catch (err) {
     console.warn("fetchFeed error", url, err);
     return [];
   }
 }
-// COMPONENTE PRINCIPAL
 
-export default function Blog(): React.ReactElement {
+// ===========================
+// COMPONENTE
+// ===========================
+const Blog: React.FC = () => {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -98,27 +83,22 @@ export default function Blog(): React.ReactElement {
 
     let cancelled = false;
 
-    async function loadAll() {
+    const loadFeeds = async () => {
       setLoading(true);
       setError(null);
 
       try {
         const results = await Promise.all(RSS_FEEDS.map(fetchFeed));
-
-        const merged = results
-          .flat()
-          .sort((a, b) => b.timestamp - a.timestamp)
-          .slice(0, 12);
-
+        const merged = results.flat().sort((a, b) => b.timestamp - a.timestamp).slice(0, 12);
         if (!cancelled) setItems(merged);
       } catch {
         if (!cancelled) setError("No se pudieron cargar las noticias.");
       } finally {
         if (!cancelled) setLoading(false);
       }
-    }
+    };
 
-    loadAll();
+    loadFeeds();
     return () => {
       cancelled = true;
     };
@@ -127,7 +107,7 @@ export default function Blog(): React.ReactElement {
   return (
     <div className="page-container profileblog">
       <section className="hero-section">
-        <div className="container">
+        <div className="container text-center">
           <h1 className="display-3 fw-bold">Blog & Noticias Gamer</h1>
           <p className="display-6">Novedades, guías y tips gamer actualizados.</p>
         </div>
@@ -138,42 +118,33 @@ export default function Blog(): React.ReactElement {
         {error && <p className="text-danger">{error}</p>}
 
         <section id="news-list" className="news-grid">
-          {items.map((it, idx) => (
+          {items.map((item, idx) => (
             <article className="news-card" key={idx}>
               <div className="news-image-wrapper">
                 <img
-                  src={it.image}
-                  alt={it.title}
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = PLACEHOLDER;
-                  }}
+                  src={item.image}
+                  alt={item.title}
+                  onError={(e) => (e.currentTarget.src = PLACEHOLDER)}
                 />
               </div>
 
               <div className="news-body">
                 <h2 className="news-title">
-                  <a href={it.link} target="_blank" rel="noopener noreferrer">
-                    {it.title}
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    {item.title}
                   </a>
                 </h2>
 
                 <p className="meta small">
-                  Fecha:{" "}
-                  {it.pubDate
-                    ? new Date(it.pubDate).toLocaleDateString("es-ES")
-                    : "Desconocida"}
-                  {" • "}
-                  <span className="source">{it.source}</span>
+                  Fecha: {item.pubDate ? new Date(item.pubDate).toLocaleDateString("es-ES") : "Desconocida"} •{" "}
+                  <span className="source">{item.source}</span>
                 </p>
 
                 <p className="excerpt">
-                  {(it.description || "")
-                    .replace(/(<([^>]+)>)/gi, "")
-                    .slice(0, 200)}
-                  ...
+                  {item.description.replace(/(<([^>]+)>)/gi, "").slice(0, 200)}...
                 </p>
 
-                <a href={it.link} target="_blank" rel="noopener noreferrer">
+                <a href={item.link} target="_blank" rel="noopener noreferrer">
                   Leer más →
                 </a>
               </div>
@@ -183,4 +154,6 @@ export default function Blog(): React.ReactElement {
       </main>
     </div>
   );
-}
+};
+
+export default Blog;

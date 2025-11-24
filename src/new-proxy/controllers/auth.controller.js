@@ -1,12 +1,12 @@
-// controllers/authcontroller.js
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const db = require("../db.js");
+// controllers/auth.controller.js
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import db from "../db.js";
 
 // =====================
 // REGISTRO
 // =====================
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
   const { nombre, email, telefono, psw } = req.body;
 
   if (!nombre || !email || !psw) {
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
 // =====================
 // LOGIN
 // =====================
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, psw } = req.body;
 
   try {
@@ -72,7 +72,6 @@ exports.login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    // <-- IMPORTANTE: esto es lo que tu frontend espera
     res.json({
       token,
       usuario: {
