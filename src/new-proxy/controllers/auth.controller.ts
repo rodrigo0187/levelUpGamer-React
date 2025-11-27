@@ -1,12 +1,19 @@
 // controllers/auth.controller.js
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { db } from "../db/db.js";
+import type {Request, Response} from "express";
+import { db } from "../../db/db";
+import type { RowDataPacket } from "mysql2/promise";
 
-// =====================
-// REGISTRO
-// =====================
-export const register = async (req, res) => {
+export interface Usuario extends RowDataPacket{
+  id:number;
+  nombre:string;
+  email:string;
+  telefono?:string | null;
+  psw :string;
+  role:string;
+}
+export const register = async (req:Request, res:Response) => {
   const { nombre, email, telefono, psw } = req.body;
 
   if (!nombre || !email || !psw) {
@@ -14,7 +21,7 @@ export const register = async (req, res) => {
   }
 
   try {
-    const [existe] = await db.query(
+    const [existe] = await db.query<Usuario[]>(
       "SELECT * FROM usuarios WHERE email = ?",
       [email]
     );
@@ -41,11 +48,11 @@ export const register = async (req, res) => {
 // =====================
 // LOGIN
 // =====================
-export const login = async (req, res) => {
+export const login = async (req:Request, res:Response) => {
   const { email, psw } = req.body;
 
   try {
-    const [rows] = await db.query(
+    const [rows] = await db.query<Usuario[]>(
       "SELECT * FROM usuarios WHERE email = ?",
       [email]
     );

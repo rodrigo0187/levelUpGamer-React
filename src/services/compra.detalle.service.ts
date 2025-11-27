@@ -1,5 +1,5 @@
 import {db} from "../db/db.js";
-import type { RowDataPacket, ResultSetHeader } from "mysql2/promise";
+import type { RowDataPacket} from "mysql2/promise";
 
 export interface CompraDetalle {
     id: number;
