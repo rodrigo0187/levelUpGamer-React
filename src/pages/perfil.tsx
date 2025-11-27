@@ -13,53 +13,88 @@ interface Usuario {
 }
 
 const Perfil: React.FC = () => {
-  const [usuario, setUsuario] = useState<Usuario>({ nombre: "Usuario", email: "usuario@correo.com" });
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [avatar, setAvatar] = useState("/img/icon/LOGO.ico");
   const [compras, setCompras] = useState<Compra[]>([]);
   const [historial, setHistorial] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  const token: string | undefined = JSON.parse(localStorage.getItem("user") || "{}")?.token;
+  // 🔥 Obtenemos usuario desde localStorage
+  const userLS = JSON.parse(localStorage.getItem("user") || "null");
 
+  // ============================
+  //   CONTROL DE SESIÓN
+  // ============================
   useEffect(() => {
-    if (!token) {
+    if (!userLS) {
       window.location.href = "/inicioSesion";
       return;
     }
 
-    const fetchPerfil = async () => {
-      try {
-        const resp = await fetch("http://localhost:3001/api/perfil", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await resp.json();
+    // Setear usuario base
+    setUsuario({
+      nombre: userLS.nombre,
+      email: userLS.email,
+      avatar: userLS.avatar,
+    });
 
-        if (resp.ok) {
-          const { usuario: u, compras: c } = data;
-          setUsuario({ nombre: u.nombre, email: u.email, avatar: u.avatar });
-          setAvatar(u.avatar || "/img/icon/LOGO.ico");
-          setCompras(c || []);
+    setAvatar(userLS.avatar || "/img/icon/LOGO.ico");
 
-          const historialCompras: string[] = c?.map((compra: Compra) => `Compra realizada: ${compra.producto}`) || [];
-          setHistorial([...historialCompras, "Accedió a su cuenta desde un nuevo dispositivo"]);
-        } else {
-          setError(data.message || "No se pudo cargar el perfil");
-        }
-      } catch (err) {
-        console.error("Error de conexión al backend:", err);
-        setError("Error de conexión con el servidor");
-      }
-    };
-
+    // Cargar datos desde backend
     fetchPerfil();
-  }, [token]);
+  }, []);
 
+  // ============================
+  //    OBTENER PERFIL BACKEND
+  // ============================
+  const fetchPerfil = async () => {
+    try {
+      const resp = await fetch("http://localhost:3006/api/perfil");
+
+      if (!resp.ok) {
+        setError("No se pudo cargar información del perfil");
+        return;
+      }
+
+      const data = await resp.json();
+      const comprasData: Compra[] = data.compras || [];
+
+      setCompras(comprasData);
+
+      const historialCompras = comprasData.map(
+        (c) => `Compra realizada: ${c.producto}`
+      );
+
+      setHistorial([
+        ...historialCompras,
+        "Accedió a su cuenta desde un nuevo dispositivo",
+      ]);
+    } catch (err) {
+      setError("Error de conexión con el servidor");
+    }
+  };
+
+  // ============================
+  //          LOGOUT
+  // ============================
   const logout = () => {
     localStorage.removeItem("user");
     alert("Sesión cerrada");
     window.location.href = "/inicioSesion";
   };
 
+  // Mientras carga usuario
+  if (!usuario) {
+    return (
+      <main className="profile-perfil-page">
+        <p className="text-center text-muted mt-5">Cargando perfil...</p>
+      </main>
+    );
+  }
+
+  // ============================
+  //          UI
+  // ============================
   return (
     <main className="profile-perfil-page">
       <div className="card shadow p-4">
@@ -99,23 +134,36 @@ const Perfil: React.FC = () => {
         </button>
       </div>
 
-      {/* Offcanvas Historial */}
-      <div className="offcanvas offcanvas-end text-white" tabIndex={-1} id="historialCanvas">
+      {/* OFFCANVAS HISTORIAL */}
+      <div
+        className="offcanvas offcanvas-end text-white"
+        tabIndex={-1}
+        id="historialCanvas"
+      >
         <div className="offcanvas-header">
           <h2 className="offcanvas-title">📝 Historial de Actividad</h2>
-          <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas"
+          ></button>
         </div>
 
         <div className="offcanvas-body">
           <ul className="list-group">
             {historial.length > 0 ? (
-              historial.map((post: string, index: number) => (
-                <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                  {post}
+              historial.map((item, i) => (
+                <li
+                  key={i}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  {item}
                 </li>
               ))
             ) : (
-              <li className="list-group-item text-muted">No hay actividad registrada</li>
+              <li className="list-group-item text-muted">
+                No hay actividad registrada
+              </li>
             )}
           </ul>
 
@@ -124,13 +172,15 @@ const Perfil: React.FC = () => {
           <h5>Compras realizadas</h5>
           <ul className="list-group">
             {compras.length > 0 ? (
-              compras.map((c: Compra, index: number) => (
-                <li key={index} className="list-group-item">
-                  {c.producto} - {c.fecha}
+              compras.map((c, i) => (
+                <li key={i} className="list-group-item">
+                  {c.producto} — {c.fecha}
                 </li>
               ))
             ) : (
-              <li className="list-group-item text-muted">No hay compras registradas</li>
+              <li className="list-group-item text-muted">
+                No hay compras registradas
+              </li>
             )}
           </ul>
         </div>

@@ -1,0 +1,14 @@
+import express from "express";
+import verifyToken from "../middlewares/verifyToken.js";
+import { getMisCompras, getCompra, crearCompra, actualizarEstado, eliminarCompra } from "../controllers/compra.controller";
+
+const router = express.Router();
+
+// Endpoints protegidos
+router.get("/compras", verifyToken, getMisCompras);
+router.get("/compras/:id", verifyToken, getCompra);
+router.post("/compras", verifyToken, crearCompra);
+router.put("/compras/:id/estado", verifyToken, actualizarEstado);
+router.delete("/compras/:id", verifyToken, eliminarCompra);
+
+export default router;

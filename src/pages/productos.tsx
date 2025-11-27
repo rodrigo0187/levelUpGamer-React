@@ -72,7 +72,7 @@ const Productos: React.FC = () => {
   const addToCart = (product: Product) => {
     if (!token) {
       alert("Debes iniciar sesión para agregar productos al carrito");
-      window.location.href = "/inicioSesion";
+      window.location.href = "/inicio-sesion";
       return;
     }
 

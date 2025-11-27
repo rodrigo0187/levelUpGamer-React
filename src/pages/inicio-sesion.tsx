@@ -31,7 +31,7 @@ const InicioSesion: React.FC = () => {
     }
 
     try {
-      const resp = await fetch("http://localhost:3001/api/login", {
+      const resp = await fetch("http://localhost:3006/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

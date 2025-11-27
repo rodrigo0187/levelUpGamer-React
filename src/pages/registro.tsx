@@ -23,12 +23,12 @@ export default function Registro() {
   const validar = () => {
     const newErrors: Record<string, string> = {};
     const emailRegex = /^[a-zA-Z0-9._%+-]+@(duocuc\.cl|profesor\.duoc\.cl|gmail\.com)$/;
-    const telRegex = /^\+569-\d{8}$/;
+    const telRegex = /^\d{8}$/;
 
     if (!nombre) newErrors.nombre = "El nombre es obligatorio.";
     if (!emailRegex.test(email)) newErrors.email = "Email inválido o dominio no permitido.";
     if (email !== repeatEmail) newErrors.repeatEmail = "Los emails no coinciden.";
-    if (telefono && !telRegex.test(telefono)) newErrors.telefono = "Formato esperado: +569-12345678";
+    if (telefono && !telRegex.test(telefono)) newErrors.telefono = "Formato esperado: 12345678";
     if (psw.length < 4 || psw.length > 10) newErrors.psw = "Debe tener entre 4 y 10 caracteres.";
     if (psw !== pswRepeat) newErrors.pswRepeat = "Las contraseñas no coinciden.";
 
@@ -47,13 +47,14 @@ export default function Registro() {
     }
 
     try {
-      const resp = await fetch("http://localhost:3001/api/register", {
+      const resp = await fetch("http://localhost:3006/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre, email, telefono, psw }),
       });
 
       const data = await resp.json();
+      console.log(JSON.stringify(data));
 
       if (!resp.ok) {
         setErrores({ general: data.message || "Error en el registro" });
@@ -126,7 +127,7 @@ export default function Registro() {
             <input
               type="tel"
               className={inputClass("telefono")}
-              placeholder="+569-1234-5678"
+              placeholder="12345678"
               value={telefono}
               onChange={(e) => setTelefono(e.target.value)}
             />

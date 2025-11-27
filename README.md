@@ -96,3 +96,7 @@ export default defineConfig([
 
 5. Iniciar servidor ruta /new-proxy:
    npm start
+
+
+# Crear carpeta services
+- solo esta carpeta se encargara de enrutar las conexiones.

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface Compra {
     producto: string;
@@ -12,9 +12,10 @@ interface Usuario {
 }
 
 interface PerfilContextType {
-    usuario: Usuario;
+    usuario: Usuario | null;
     compras: Compra[];
     historial: string[];
+    setUsuario: (u: Usuario | null) => void;
     setCompras: (c: Compra[]) => void;
     addHistorial: (msg: string) => void;
 }
@@ -22,14 +23,24 @@ interface PerfilContextType {
 const PerfilContext = createContext<PerfilContextType | undefined>(undefined);
 
 export const PerfilProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [usuario, setUsuario] = useState<Usuario>({ nombre: "Usuario", email: "usuario@correo.com" });
+    const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [compras, setCompras] = useState<Compra[]>([]);
     const [historial, setHistorial] = useState<string[]>([]);
 
     const addHistorial = (msg: string) => setHistorial(prev => [...prev, msg]);
 
+    // 🔥 Cargar usuario desde localStorage al iniciar
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUsuario(JSON.parse(storedUser));
+        }
+    }, []);
+
     return (
-        <PerfilContext.Provider value={{ usuario, compras, historial, setCompras, addHistorial }}>
+        <PerfilContext.Provider
+            value={{ usuario, compras, historial, setUsuario, setCompras, addHistorial }}
+        >
             {children}
         </PerfilContext.Provider>
     );
