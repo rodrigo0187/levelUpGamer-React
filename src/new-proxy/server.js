@@ -26,9 +26,3 @@ app.use("/api", productosRoutes);
 app.listen(3006, () => {
   console.log("Servidor backend corriendo en http://localhost:3006");
 });
-
-
-
-
-
-
