@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { ProductoService } from "../../services/producto.service";
 
-export const getAllProductos = async (req: Request, res: Response) => {
+export const getAllProductos = async (res: Response) => {
   try {
     const productos = await ProductoService.getAll();
     res.json(productos);

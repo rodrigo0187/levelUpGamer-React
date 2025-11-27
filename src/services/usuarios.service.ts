@@ -23,12 +23,4 @@ export class UsuariosService {
   static async deleteById(id: number): Promise<boolean> {
     return UsuariosRepository.deleteById(id);
   }
-
-  static async getMyProfile(userId: number): Promise<IUsuario | null> {
-    return UsuariosRepository.getById(userId);
-  }
-
-  static async updateMyProfile(userId: number, data: Partial<IUsuario>): Promise<boolean> {
-    return UsuariosRepository.updateById(userId, data);
-  }
 }

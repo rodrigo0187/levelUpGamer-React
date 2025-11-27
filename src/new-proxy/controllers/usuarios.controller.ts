@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { UsuariosService } from "../../services/usuarios.service";
 
 export class UsuariosController {
-  static async getAllUsers(req: Request, res: Response) {
+  static async getAllUsers(res: Response) {
     try {
       const data = await UsuariosService.getAll();
       res.json(data);
@@ -45,28 +45,6 @@ export class UsuariosController {
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Error al eliminar usuario" });
-    }
-  }
-
-  static async getMyProfile(req: any, res: Response) {
-    try {
-      const userId = req.user.id;
-      const perfil = await UsuariosService.getMyProfile(userId);
-      res.json(perfil);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error al obtener perfil" });
-    }
-  }
-
-  static async updateMyProfile(req: any, res: Response) {
-    try {
-      const userId = req.user.id;
-      const success = await UsuariosService.updateMyProfile(userId, req.body);
-      res.json({ message: "Perfil actualizado correctamente" });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error al actualizar perfil" });
     }
   }
 }
