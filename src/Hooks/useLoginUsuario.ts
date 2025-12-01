@@ -1,16 +1,16 @@
-import { json } from "body-parser";
 import { useState } from "react";
 
-const API_URL = "http://localhost:3006/api";
-
+import  {API_URL} from "../Hooks/api";
+// estado del hook
 export function useLoginusuario(){
     const [loading, setloading] = useState(false);
     const [error,seterror] = useState<string | null>(null);
-
+// funcion publica que expondra el hook
     const login= async(email:string,psw:string)=>{
         setloading(true);
         seterror(null);
         try{
+            // se realiza la peticion post al endpoint login
             const res = await fetch('${API_URL}/login',{
                 method :"POST",
                 headers : {"content-type":"aplication/json"},

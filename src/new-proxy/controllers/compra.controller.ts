@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { CompraService } from "../../services/compra.service";
 
+// get
 export const getMisCompras = async (req: Request & { user?: { id: number } }, res: Response) => {
   try {
     const compras = await CompraService.getComprasByUsuario(req.user!.id);
@@ -11,6 +12,7 @@ export const getMisCompras = async (req: Request & { user?: { id: number } }, re
   }
 };
 
+//get
 export const getCompra = async (req: Request & { user?: { id: number } }, res: Response) => {
   try {
     const compraId = Number(req.params.id);
@@ -24,7 +26,7 @@ export const getCompra = async (req: Request & { user?: { id: number } }, res: R
     res.status(500).json({ message: "Error al obtener compra" });
   }
 };
-
+//post
 export const crearCompra = async (req: Request & { user?: { id: number } }, res: Response) => {
   try {
     const { total } = req.body;
@@ -36,7 +38,7 @@ export const crearCompra = async (req: Request & { user?: { id: number } }, res:
     res.status(500).json({ message: "Error al crear compra" });
   }
 };
-
+//put
 export const actualizarEstado = async (req: Request, res: Response) => {
   try {
     const compraId = Number(req.params.id);
@@ -51,7 +53,7 @@ export const actualizarEstado = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al actualizar estado" });
   }
 };
-
+//delete
 export const eliminarCompra = async (req: Request, res: Response) => {
   try {
     const compraId = Number(req.params.id);

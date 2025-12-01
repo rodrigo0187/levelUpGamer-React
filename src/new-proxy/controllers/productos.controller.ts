@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { ProductoService } from "../../services/producto.service";
-
-export const getAllProductos = async (res: Response) => {
+//get
+export const getAllProductos = async (req: Request,res: Response) => {
   try {
     const productos = await ProductoService.getAll();
     res.json(productos);
@@ -10,7 +10,7 @@ export const getAllProductos = async (res: Response) => {
     res.status(500).json({ message: "Error al obtener productos" });
   }
 };
-
+//get
 export const getProductoById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
@@ -23,7 +23,7 @@ export const getProductoById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al obtener producto" });
   }
 };
-
+//post
 export const createProducto = async (req: Request, res: Response) => {
   try {
     const id = await ProductoService.create(req.body);
@@ -33,7 +33,7 @@ export const createProducto = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al crear producto" });
   }
 };
-
+// put
 export const updateProducto = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
@@ -46,7 +46,7 @@ export const updateProducto = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al actualizar producto" });
   }
 };
-
+// delete
 export const deleteProducto = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
