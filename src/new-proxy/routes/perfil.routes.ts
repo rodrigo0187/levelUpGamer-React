@@ -1,8 +1,8 @@
-import express from "express";
-import { getMyProfile, updateMyProfile } from "../controllers/perfil.controller.js";
+import {Router} from "express";
+import { getMyProfile, updateMyProfile } from "../controllers/perfil.controller";
 import verifyToken from "../middlewares/verifyToken.js";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/perfil", verifyToken, getMyProfile);
 router.put("/perfil", verifyToken, updateMyProfile);

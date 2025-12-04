@@ -10,7 +10,7 @@ export function useActualizarProducto(){
         setLoading(true);
         setError(null);
         try{
-        const res = await fetch('${API_URL}/productos/${id}' , {
+        const res = await fetch(`${API_URL}/productos/${id}` , {
                 method : "PUT",
                 headers: {"content-type": 'application/json',Authorization : 'Bearer ${token}'
             },

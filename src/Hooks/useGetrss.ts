@@ -13,7 +13,7 @@ export function useGetRss(){
     const fetchRSS = async()=>{
         setloading(true);
         try{
-            const res = await fetch('${API_URL}/rss');
+            const res = await fetch(`${API_URL}/rss`);
             const json = await res.json();
             setData(json);
         }catch(err:any){

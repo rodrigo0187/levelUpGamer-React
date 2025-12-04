@@ -12,7 +12,7 @@ export function useMisCompras(){
         setError(null);
         try{
             const token = localStorage.getItem("token");
-            const res = await fetch('${API_URL}/mis-compras',{
+            const res = await fetch(`${API_URL}/mis-compras`,{
                 headers : {
                     "Authorization":'Bearer ${token}'
                 }

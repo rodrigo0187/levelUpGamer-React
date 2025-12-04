@@ -13,6 +13,7 @@ export interface Usuario extends RowDataPacket{
   psw :string;
   role:string;
 }
+// register
 export const register = async (req:Request, res:Response) => {
   const { nombre, email, telefono, psw } = req.body;
 
@@ -22,7 +23,7 @@ export const register = async (req:Request, res:Response) => {
 
   try {
     const [existe] = await db.query<Usuario[]>(
-      "SELECT * FROM usuarios WHERE email = ?",
+      "SELECT * FROM usuario WHERE email = ?",
       [email]
     );
 
@@ -33,7 +34,7 @@ export const register = async (req:Request, res:Response) => {
     const hash = await bcrypt.hash(psw, 10);
 
     await db.query(
-      "INSERT INTO usuarios (nombre, email, telefono, psw, role) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO usuario (nombre, email, telefono, psw, role) VALUES (?, ?, ?, ?, ?)",
       [nombre, email, telefono ?? null, hash, "user"]
     );
 
@@ -53,7 +54,7 @@ export const login = async (req:Request, res:Response) => {
 
   try {
     const [rows] = await db.query<Usuario[]>(
-      "SELECT * FROM usuarios WHERE email = ?",
+      "SELECT * FROM usuario WHERE email = ?",
       [email]
     );
 

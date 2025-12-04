@@ -9,7 +9,7 @@ export function updatePerfilUsuario(){
         setloading(true);
         const token = localStorage.getItem("token");
 
-        const res = await fetch('${API_URL}/perfil',{
+        const res = await fetch(`${API_URL}/perfil`,{
             method :"PUT",
             headers: {
                 "content-type":"application/json",

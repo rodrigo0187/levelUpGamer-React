@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/stylesheet-inicio-sesion.css";
+import { API_URL } from "../Hooks/api";
 
 interface Usuario {
   nombre: string;
@@ -29,9 +30,8 @@ const InicioSesion: React.FC = () => {
       setErrorMsg("La contraseña debe tener entre 4 y 10 caracteres.");
       return;
     }
-
     try {
-      const resp = await fetch("http://localhost:3006/api/login", {
+      const resp = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

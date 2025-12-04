@@ -11,7 +11,7 @@ export class RSSService {
   // Obtener todos los RSS
   static async getAll(): Promise<Rssitem[]> {
     const [rows] = await db.query<RowDataPacket[] & Rssitem[]>(
-      "SELECT * FROM rss ORDER BY created_at DESC"
+      "SELECT * FROM posts ORDER BY created_at DESC"
     );
     return rows;
   }
@@ -19,7 +19,7 @@ export class RSSService {
   // Obtener por ID
   static async getById(id: number): Promise<Rssitem | null> {
     const [rows] = await db.query<RowDataPacket[] & Rssitem[]>(
-      "SELECT * FROM rss WHERE id = ?",
+      "SELECT * FROM posts WHERE id = ?",
       [id]
     );
     return rows.length > 0 ? rows[0] : null;
@@ -30,7 +30,7 @@ export class RSSService {
     const { title, content, image } = data;
 
     const [result] = await db.query<ResultSetHeader>(
-      "INSERT INTO rss (title, content, image) VALUES (?, ?, ?)",
+      "INSERT INTO posts (title, content, image) VALUES (?, ?, ?)",
       [title, content, image]
     );
 
@@ -42,7 +42,7 @@ export class RSSService {
     const { title, content, image } = data;
 
     const [result] = await db.query<ResultSetHeader>(
-      "UPDATE rss SET title = ?, content = ?, image = ? WHERE id = ?",
+      "UPDATE posts SET title = ?, content = ?, image = ? WHERE id = ?",
       [title, content, image, id]
     );
 
@@ -52,7 +52,7 @@ export class RSSService {
   // Eliminar RSS
   static async delete(id: number): Promise<boolean> {
     const [result] = await db.query<ResultSetHeader>(
-      "DELETE FROM rss WHERE id = ?",
+      "DELETE FROM posts WHERE id = ?",
       [id]
     );
 

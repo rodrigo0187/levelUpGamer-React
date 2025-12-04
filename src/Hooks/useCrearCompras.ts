@@ -13,7 +13,7 @@ export function useCrearCompras(){
 
         try{
             const token = localStorage.getItem("token");
-            const res = await fetch('${API_URL}/compras',{
+            const res = await fetch(`${API_URL}/compras`,{
                 method :"POST",
                 headers :{
                     "content-type":"application/json",

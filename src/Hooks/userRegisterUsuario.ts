@@ -15,7 +15,7 @@ import  {API_URL} from "../Hooks/api";
         seterror(null); // limpiar errores previos
         // hacemos la peticion post al endpoint / register
         try{
-            const res = await fetch('${API_URL}/register',{
+            const res = await fetch(`${API_URL}/register`,{
                 method: "POST",
                 headers:{"content-type":"aplication/json"},// le decimos que mandamos un json
                 body : JSON.stringify({nombre,email,telefono,psw}) // cuerpo de la peticion

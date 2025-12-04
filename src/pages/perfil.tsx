@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/stylesheet-perfil.css";
+import { API_URL } from "../Hooks/api";
 
 interface Compra {
   producto: string;
@@ -49,7 +50,7 @@ const Perfil: React.FC = () => {
   // ============================
   const fetchPerfil = async () => {
     try {
-      const resp = await fetch("http://localhost:3006/api/perfil");
+      const resp = await fetch(`${API_URL}/perfil`);
 
       if (!resp.ok) {
         setError("No se pudo cargar información del perfil");

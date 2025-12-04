@@ -10,7 +10,7 @@ export function userPerfilUsuario() {
 
         async function fetchPerfil() {
             try {
-                const res = await fetch('$API_URL/perfil', {
+                const res = await fetch(`${API_URL}/perfil`, {
                     headers: { Authorization: 'Bearer ${toke}' }
                 });
                 if (!res.ok) throw new Error("No autorizado");

@@ -1,3 +1,4 @@
+// db usuario
 import type { Request, Response } from "express";
 import { UsuariosService } from "../../services/usuarios.service";
 

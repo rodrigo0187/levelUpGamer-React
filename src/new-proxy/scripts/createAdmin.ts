@@ -1,16 +1,13 @@
-// =====================================
-// CREAR USUARIO ADMIN EN MYSQL
-// =====================================
-
-const db = require("../db");     // conexión MySQL
-const bcrypt = require("bcryptjs");
+import { db } from "../../db/db";
+import bcrypt from "bcryptjs";
+import type { RowDataPacket } from "mysql2/promise";
 
 async function crearAdmin() {
   try {
     console.log("Verificando si existe el administrador...");
 
     // Verificar si ya existe admin
-    const [rows] = await db.query(
+    const [rows]: [RowDataPacket[], any[]] = await db.query(
       "SELECT * FROM usuarios WHERE email = ?",
       ["admin@admin.com"]
     );
@@ -20,13 +17,13 @@ async function crearAdmin() {
       process.exit(0);
     }
 
-    // Pega aquí tu hash generado
-    const passwordHash = "$2b$10$mvwAn02CUL2tcC1gR3b9f.Zf/U/6WvX1FM1gXdKl1a2QU/iBDyhYC";
+    // Hash generado
+    const passwordHash = await bcrypt.hash("admin123", 10);
 
     // Insertar admin
     await db.query(
-      "INSERT INTO usuarios (nombre, email, telefono, psw) VALUES (?, ?, ?, ?)",
-      ["Administrador", "admin@admin.com", "000000000", passwordHash]
+      "INSERT INTO usuarios (nombre, email, telefono, psw, role) VALUES (?, ?, ?, ?, ?)",
+      ["Administrador", "admin@admin.com", "000000000", passwordHash, "admin"]
     );
 
     console.log("✅ Usuario administrador creado con éxito");

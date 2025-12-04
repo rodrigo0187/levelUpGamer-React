@@ -1,3 +1,4 @@
+//db compra_detalle
 import {CompraDetalle} from "../../services/compra.detalle.service";
 import type {Request, Response} from "express";
 

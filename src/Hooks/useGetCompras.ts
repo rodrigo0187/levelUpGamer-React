@@ -13,7 +13,7 @@ export function useGetCompra(){
         try{
             const token = localStorage.getItem("token");
 
-            const res = await fetch('${API_URL}/compra/${id}',
+            const res = await fetch(`${API_URL}/compra/${id}`,
                 {
                     headers:{
                         "Authorization":'Bearer ${token}'

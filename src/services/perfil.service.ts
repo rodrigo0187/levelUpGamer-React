@@ -12,7 +12,7 @@ export class PerfilService {
   static async getMyProfile(userId: number) {
     // Tipamos la respuesta como Usuario[]
     const [rows] = await db.query<RowDataPacket[] &Usuario>(
-      "SELECT id, nombre, email, avatar FROM usuarios WHERE id = ?",
+      "SELECT id, nombre, email, avatar FROM usuario WHERE id = ?",
       [userId]
     );
 

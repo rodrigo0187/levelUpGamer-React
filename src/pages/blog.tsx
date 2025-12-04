@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/stylesheet-blog.css";
+import {API_URL} from "../Hooks/api";
 
 // ===========================
 // TIPOS
@@ -38,7 +39,7 @@ function extractImageFromDescription(html: string): string | null {
 
 async function fetchFeed(url: string): Promise<FeedItem[]> {
   try {
-    const resp = await fetch(`http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`);
+    const resp = await fetch(`${API_URL}/rss?url=${encodeURIComponent(url)}`);
     if (!resp.ok) throw new Error("Error al obtener RSS");
 
     const data = await resp.json();

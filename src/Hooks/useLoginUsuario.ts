@@ -11,7 +11,7 @@ export function useLoginusuario(){
         seterror(null);
         try{
             // se realiza la peticion post al endpoint login
-            const res = await fetch('${API_URL}/login',{
+            const res = await fetch(`${API_URL}/login`,{
                 method :"POST",
                 headers : {"content-type":"aplication/json"},
                 body : JSON.stringify({email , psw})
