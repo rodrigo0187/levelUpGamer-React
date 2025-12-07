@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { API_URL } from "./api";
+import type { Rssitem } from "../services/rss.service";
+
 export function useUpdateRSS() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateRSS = async (id: number, data: Partial<RSSItem>) => {
+  const updateRSS = async (id: number, data: Partial<Rssitem>) => {
     setLoading(true);
 
     try {

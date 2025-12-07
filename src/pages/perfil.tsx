@@ -80,7 +80,7 @@ const Perfil: React.FC = () => {
   const logout = () => {
     localStorage.removeItem("user");
     alert("Sesión cerrada");
-    window.location.href = "/inicioSesion";
+    window.location.href = "/inicio-sesion";
   };
 
   // Mientras carga usuario

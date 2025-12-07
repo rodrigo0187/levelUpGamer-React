@@ -22,7 +22,7 @@ import "./assets/css/stylesheet-nav-bar.css";
 import "./assets/css/stylesheet-footer.css";
 
 
-// LIBRERÍAS (solo aquí debe cargarse)
+// LIBRERÍAS
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";

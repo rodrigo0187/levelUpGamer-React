@@ -1,37 +1,47 @@
+// useLoginUsuario
 import { useState } from "react";
+import { API_URL } from "../Hooks/api";
 
-import  {API_URL} from "../Hooks/api";
-// estado del hook
-export function useLoginusuario(){
+export function useLoginusuario() {
     const [loading, setloading] = useState(false);
-    const [error,seterror] = useState<string | null>(null);
-// funcion publica que expondra el hook
-    const login= async(email:string,psw:string)=>{
+    const [error, seterror] = useState<string | null>(null);
+
+    const login = async (email: string, psw: string) => {
         setloading(true);
         seterror(null);
-        try{
-            // se realiza la peticion post al endpoint login
-            const res = await fetch('${API_URL}/login',{
-                method :"POST",
-                headers : {"content-type":"aplication/json"},
-                body : JSON.stringify({email , psw})
-            });
-            const data = await res.json();
 
-            if(!res.ok){
-                throw new Error (data.message||"Error al inciar sesion");
+        try {
+            const res = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password: psw }) // Frontend still calls it psw locally in hook arg, but sends 'password'
+            });
+
+            const data = await res.json();
+            console.log("Respuesta del login:", data); // solo test para ver que llega desde el navegador
+
+            if (!res.ok) {
+                throw new Error(data.message || "Error al iniciar sesión");
             }
 
-            // guardan el token
-            localStorage.setItem("token",data.token);
+            // Guardo el usuario + token correctamente
+            localStorage.setItem("user", JSON.stringify({
+                id: data.usuario.id,
+                nombre: data.usuario.nombre,
+                email: data.usuario.email,
+                role: data.usuario.role,
+                token: data.token
+            }));
+
             return data;
-        }catch(err:any){
+
+        } catch (err: any) {
             seterror(err.message);
             return null;
-        }finally{
+        } finally {
             setloading(false);
         }
     };
-    return {login,loading,error};
 
+    return { login, loading, error };
 }

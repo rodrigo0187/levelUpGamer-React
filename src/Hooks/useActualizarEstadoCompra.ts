@@ -12,10 +12,10 @@ export function useActualizarEstadoCompra(){
         setError(null);
 
         try{
-            const res = await fetch('${API_URL}/compra/${id}/estado',{
+            const res = await fetch(`${API_URL}/compra/${id}/estado`,{
                 method:"PUT",
                 headers :{
-                    "content-type":"application/json"
+                    "Content-Type":"application/json"
                 },
                 body:JSON.stringify({estado})
         });

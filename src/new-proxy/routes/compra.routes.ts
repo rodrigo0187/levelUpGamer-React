@@ -1,5 +1,5 @@
 import express from "express";
-import verifyToken from "../middlewares/verifyToken.js";
+import verifyToken from "../middlewares/verifyToken";
 import { getMisCompras, getCompra, crearCompra, actualizarEstado, eliminarCompra } from "../controllers/compra.controller";
 
 const router = express.Router();

@@ -1,3 +1,4 @@
+// useProducto{id}
 import { useState, useEffect } from "react";
 import  {API_URL} from "../Hooks/api";
 export function useProducto(id: number) {

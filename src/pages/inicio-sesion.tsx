@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/stylesheet-inicio-sesion.css";
+import icoLogo from "../assets/img/icon/LOGO.ico";
 
-interface Usuario {
-  nombre: string;
-  email: string;
-  psw: string;
-}
+
 
 const InicioSesion: React.FC = () => {
   useEffect(() => {
@@ -36,7 +33,7 @@ const InicioSesion: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, psw }),
+        body: JSON.stringify({ email, password: psw }),
       });
 
       const data = await resp.json();
@@ -75,7 +72,7 @@ const InicioSesion: React.FC = () => {
 
         {/* Avatar */}
         <div className="imgcontainer">
-          <img src="/img/icon/LOGO.ico" alt="Avatar" className="avatar" />
+          <img src={icoLogo} alt="Avatar" className="avatar" />
         </div>
 
         <form onSubmit={handleSubmit}>

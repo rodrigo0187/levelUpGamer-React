@@ -1,27 +1,34 @@
 // controllers/auth.controller.js
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import type {Request, Response} from "express";
+import type { Request, Response } from "express";
 import { db } from "../../db/db";
 import type { RowDataPacket } from "mysql2/promise";
+import type { IUsuario } from "../../interfaces/IUsuario";
 
-export interface Usuario extends RowDataPacket{
-  id:number;
-  nombre:string;
-  email:string;
-  telefono?:string | null;
-  psw :string;
-  role:string;
+// Interfaz interna para mapear la base de datos
+interface DbUsuario extends RowDataPacket {
+  id: number;
+  nombre: string;
+  email: string;
+  telefono?: string | null;
+  psw: string;
+  role: string;
+  avatar?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }
-export const register = async (req:Request, res:Response) => {
-  const { nombre, email, telefono, psw } = req.body;
 
-  if (!nombre || !email || !psw) {
+export const register = async (req: Request, res: Response) => {
+  // Frontend sends 'password', not 'psw'
+  const { nombre, email, telefono, password } = req.body;
+
+  if (!nombre || !email || !password) {
     return res.status(400).json({ message: "Nombre, email y contraseña son obligatorios" });
   }
 
   try {
-    const [existe] = await db.query<Usuario[]>(
+    const [existe] = await db.query<DbUsuario[]>(
       "SELECT * FROM usuarios WHERE email = ?",
       [email]
     );
@@ -30,7 +37,7 @@ export const register = async (req:Request, res:Response) => {
       return res.status(400).json({ message: "El email ya está registrado" });
     }
 
-    const hash = await bcrypt.hash(psw, 10);
+    const hash = await bcrypt.hash(password, 10);
 
     await db.query(
       "INSERT INTO usuarios (nombre, email, telefono, psw, role) VALUES (?, ?, ?, ?, ?)",
@@ -48,11 +55,11 @@ export const register = async (req:Request, res:Response) => {
 // =====================
 // LOGIN
 // =====================
-export const login = async (req:Request, res:Response) => {
-  const { email, psw } = req.body;
+export const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
 
   try {
-    const [rows] = await db.query<Usuario[]>(
+    const [rows] = await db.query<DbUsuario[]>(
       "SELECT * FROM usuarios WHERE email = ?",
       [email]
     );
@@ -63,7 +70,8 @@ export const login = async (req:Request, res:Response) => {
 
     const user = rows[0];
 
-    const match = await bcrypt.compare(psw, user.psw);
+    // Compare provided 'password' with stored 'psw'
+    const match = await bcrypt.compare(password, user.psw);
 
     if (!match) {
       return res.status(401).json({ message: "Credenciales inválidas" });
@@ -79,14 +87,19 @@ export const login = async (req:Request, res:Response) => {
       { expiresIn: "1h" }
     );
 
+    const usuarioResponse: IUsuario = {
+      id: user.id,
+      nombre: user.nombre,
+      email: user.email,
+      role: user.role,
+      telefono: user.telefono,
+      avatar: user.avatar
+      // Don't send password/psw back
+    };
+
     res.json({
       token,
-      usuario: {
-        id: user.id,
-        nombre: user.nombre,
-        email: user.email,
-        role: user.role
-      }
+      usuario: usuarioResponse
     });
 
   } catch (err) {

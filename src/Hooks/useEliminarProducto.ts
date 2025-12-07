@@ -11,10 +11,10 @@ export function useEliminarProducto() {
         setError(null);
 
         try {
-            const res = await fetch('${API_URL}/productos/${id}', {
+            const res = await fetch(`${API_URL}/productos/${id}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: 'Bearer ${token}'
+                    Authorization: `Bearer ${token}`
                 }
             });
             if (!res.ok) throw new Error("Error al eliminar el producto");

@@ -4,4 +4,4 @@ cd /ruta/de/tu/proyecto/backend/scripts
 
 # EJECUTAR
 
-node crearAdmin.js
+npx tsx src/new-proxy/scripts/createAdmin.ts

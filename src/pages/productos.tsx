@@ -54,7 +54,9 @@ const products: Product[] = [
 const Productos: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [filter, setFilter] = useState<string>("ALL");
-  const token: string | undefined = JSON.parse(localStorage.getItem("user") || "{}")?.token;
+  // const token: string | undefined = JSON.parse(localStorage.getItem("user") || "{}")?.token;
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const token = user.token;
 
   useEffect(() => {
     const stored = localStorage.getItem("cart");

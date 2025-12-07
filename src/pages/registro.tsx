@@ -50,7 +50,7 @@ export default function Registro() {
       const resp = await fetch("http://localhost:3006/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, email, telefono, psw }),
+        body: JSON.stringify({ nombre, email, telefono, password: psw }),
       });
 
       const data = await resp.json();

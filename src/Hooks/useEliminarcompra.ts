@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {API_URL} from '../Hooks/api';
+import { API_URL } from '../Hooks/api';
 
 export function useEliminarCompra() {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,8 @@ export function useEliminarCompra() {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const token = user.token;
 
       const res = await fetch(`${API_URL}/compra/${id}`, {
         method: "DELETE",
