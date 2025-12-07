@@ -49,7 +49,7 @@ const InicioSesion: React.FC = () => {
       // Guardar solo para mantener sesión en el navegador actual
       localStorage.setItem(
         "user",
-        JSON.stringify({ ...data.usuario, nombre: nombreFormateado })
+        JSON.stringify({ ...data.usuario, nombre: nombreFormateado, token: data.token })
       );
 
       alert(`Bienvenido ${nombreFormateado}`);

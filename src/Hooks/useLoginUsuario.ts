@@ -18,7 +18,7 @@ export function useLoginusuario() {
             });
 
             const data = await res.json();
-            console.log("Respuesta del login:", data); // solo test para ver que llega desde el navegador
+            // console.log("Respuesta del login:", data); // solo test para ver que llega desde el navegador
 
             if (!res.ok) {
                 throw new Error(data.message || "Error al iniciar sesión");
