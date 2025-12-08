@@ -27,4 +27,15 @@ const verifyToken = (req: Request & { user?: JwtPayload }, res: Response, next: 
   }
 };
 
+
+export const verifyAdmin = (req: Request & { user?: any }, res: Response, next: NextFunction) => {
+  verifyToken(req, res, () => {
+    if (req.user?.role === "admin") {
+      next();
+    } else {
+      res.status(403).json({ message: "Acceso denegado. Se requiere rol de administrador." });
+    }
+  });
+};
+
 export default verifyToken;

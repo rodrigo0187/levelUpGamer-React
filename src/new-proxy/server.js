@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 
 import authRoutes from "./routes/auth.routes";
-// import postsRoutes from "./routes/posts.routes";
+import postsRoutes from "./routes/posts.routes";
 import rssRoutes from "./routes/rss.routes";
 import compraRoutes from "./routes/compra.routes";
 import userRoutes from './routes/user.routes';
@@ -20,7 +20,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/api", authRoutes);
-// app.use("/api", postsRoutes);
+app.use("/api/posts", postsRoutes);
 app.use("/api", rssRoutes);
 app.use("/api", compraRoutes);
 app.use("/api", userRoutes);

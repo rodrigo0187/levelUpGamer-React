@@ -21,6 +21,14 @@ import "./assets/css/stylesheet-general.css";
 import "./assets/css/stylesheet-nav-bar.css";
 import "./assets/css/stylesheet-footer.css";
 
+// Admin
+import AdminLayout from "./layouts/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import UsersManager from "./pages/admin/UsersManager";
+import ProductsManager from "./pages/admin/ProductsManager";
+import BlogManager from "./pages/admin/BlogManager";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 
 // LIBRERÍAS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -50,6 +58,16 @@ function App() {
         <Route path="/ver-mi-Perfil" element={<VermiPerfil />} />
         <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
         <Route path="/politica-y-privacidad" element={<PoliticaYPrivacidad />} />
+
+        {/* Admin Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="usuarios" element={<UsersManager />} />
+            <Route path="productos" element={<ProductsManager />} />
+            <Route path="blog" element={<BlogManager />} />
+          </Route>
+        </Route>
 
 
       </Routes>
