@@ -21,13 +21,16 @@ async function crearAdmin() {
     }
 
     // Hash ya generado previamente
-    const passwordHash =
-      "$2b$10$mvwAn02CUL2tcC1gR3b9f.Zf/U/6WvX1FM1gXdKl1a2QU/iBDyhYC";
 
-    // Insertar admin
+    // Hash generado para 'admin123'
+    const passwordHash = await bcrypt.hash("admin123", 10);
+
+    // Insertar admin o actualizar si existe
     await db.query(
-      "INSERT INTO usuarios (nombre, email, telefono, psw) VALUES (?, ?, ?, ?)",
-      ["Administrador", "admin@admin.com", "000000000", passwordHash]
+      `INSERT INTO usuarios (nombre, email, telefono, psw, role) 
+       VALUES (?, ?, ?, ?, 'admin') 
+       ON DUPLICATE KEY UPDATE psw = ?, role = 'admin'`,
+      ["Administrador", "admin@admin.com", "12345678", passwordHash, passwordHash]
     );
 
     console.log("✅ Usuario administrador creado con éxito");

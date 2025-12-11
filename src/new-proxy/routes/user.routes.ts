@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { UsuariosController } from "../controllers/usuarios.controller";
 
+import { verifyAdmin } from "../middlewares/verifyToken";
+
 const router = Router();
 
 // Rutas admin
-router.get("/users", UsuariosController.getAllUsers);
-router.get("/users/:id", UsuariosController.getUserById);
-router.put("/users/:id", UsuariosController.updateUser);
-router.delete("/users/:id", UsuariosController.deleteUser);
+router.get("/users", verifyAdmin, UsuariosController.getAllUsers);
+router.get("/users/:id", verifyAdmin, UsuariosController.getUserById);
+router.put("/users/:id", verifyAdmin, UsuariosController.updateUser);
+router.delete("/users/:id", verifyAdmin, UsuariosController.deleteUser);
 
 export default router;

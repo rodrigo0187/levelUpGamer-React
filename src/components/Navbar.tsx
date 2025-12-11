@@ -75,12 +75,21 @@ export default function Navbar() {
                 </li>
               </>
             ) : (
-              /* 👇 SI ESTÁ LOGUEADO: mostrar nombre y acceso a perfil */
-              <li className="nav-item mx-1">
-                <Link className="nav-link fw-bold text-success" to="/perfil">
-                  {usuario.nombre} 👤
-                </Link>
-              </li>
+              <>
+                {/* 👇 SI ES ADMIN: MOSTRAR LINK ADMIN */}
+                {usuario.role === "admin" && (
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link text-warning fw-bold" to="/admin">Admin Panel</Link>
+                  </li>
+                )}
+
+                {/* 👇 SI ESTÁ LOGUEADO: mostrar nombre y acceso a perfil */}
+                <li className="nav-item mx-1">
+                  <Link className="nav-link fw-bold text-success" to="/perfil">
+                    {usuario.nombre} 👤
+                  </Link>
+                </li>
+              </>
             )}
 
           </ul>

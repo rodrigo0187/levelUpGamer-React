@@ -1,68 +1,60 @@
-import {db} from '../db/db.js';
-import type { RowDataPacket ,ResultSetHeader} from 'mysql2/promise';
+import { db } from '../db/db';
+import type { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 
 export interface Producto {
-    id:number;
-    nombre:string;
-    descripcion?:string;
-    precio:number;
-    imagen?:string;
-    stock:number;
-    creado_en:string
+    id: number;
+    nombre: string;
+    descripcion?: string;
+    precio: number;
+    imagen?: string;
+    stock: number;
 }
 
-// obtener todos los productos
-export class ProductoService{
-    // obtener todos los productos
-    // async asincrona 
-    static async getAll():Promise<Producto[]>{
-        // await para espera la respuesta de la promesa (consulta o query)
-        const [rows]= await db.query<RowDataPacket[]& Producto[]>(
-            // consulta Query
-            'SELECT * FROM producto order by creado_en DESC'
+export class ProductoService {
+    static async getAll(): Promise<Producto[]> {
+        const [rows] = await db.query<RowDataPacket[] & Producto[]>(
+            "SELECT id, name as nombre, price as precio, img as imagen, `desc` as descripcion, stock FROM productos"
         );
         return rows;
     }
 
-    // obtener producto por id
-    static async getById(id:number):Promise<Producto[]>{
+    static async getById(id: number): Promise<Producto[]> {
         const [rows] = await db.query<RowDataPacket[] & Producto[]>(
-            'SELECT * FROM producto WHERE id = ?',[id]
+            "SELECT id, name as nombre, price as precio, img as imagen, `desc` as descripcion, stock FROM productos WHERE id = ?",
+            [id]
         );
         return rows;
     }
-    // crear un nuevo producto
-    static async create(data :Omit<Producto, 'id'|'creado_en'>):Promise<number>{
-        const {nombre,descripcion,precio,imagen,stock} = data;
-        const[result] = await db.query<ResultSetHeader>(
-            // insertar un nuevo producto
-            'INSERT INTO producto (nombre,descripcion,precio,imagen,stock)VALUES(?,?,?,?,?)',
-            [nombre,descripcion,precio,imagen,stock]
+
+    static async create(data: any): Promise<number> {
+        const { nombre, descripcion, precio, imagen, stock } = data;
+        const code = "GEN" + Date.now().toString().slice(-4);
+        const category = "GEN";
+
+        const [result] = await db.query<ResultSetHeader>(
+            "INSERT INTO productos (name, `desc`, price, img, stock, code, category) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [nombre, descripcion, precio, imagen, stock, code, category]
         );
         return result.insertId;
     }
-    // actualizar un producto
-    static async updateById(id:number,data: Partial<Omit<Producto ,"id"|"creado_en">>):Promise<boolean>{
 
-    const {nombre,descripcion,precio,imagen,stock} = data;
-    const [result] = await db.query<ResultSetHeader>(
-        "UPDATE producto SET nombre = ? , set descripcion = ? , set precio =? , set imagen = ?,stock = ? WHERE id = ?",
-        [nombre,descripcion,precio,imagen,stock,id]
-    );
-    return result.affectedRows>0;
-    };
+    static async updateById(id: number, data: any): Promise<boolean> {
+        const { nombre, descripcion, precio, imagen, stock } = data;
 
-    // eliminar un producto
-    static async deleteById(id:number):Promise<boolean>{
+        // Dynamic query building could be better but sticking to simple active fields
+        // Note: The UI sends all fields usually. 
         const [result] = await db.query<ResultSetHeader>(
-            "DELETE FROM producto WHERE id = ?",
+            "UPDATE productos SET name = ?, `desc` = ?, price = ?, img = ?, stock = ? WHERE id = ?",
+            [nombre, descripcion, precio, imagen, stock, id]
+        );
+        return result.affectedRows > 0;
+    }
+
+    static async deleteById(id: number): Promise<boolean> {
+        const [result] = await db.query<ResultSetHeader>(
+            "DELETE FROM productos WHERE id = ?",
             [id]
-        )
+        );
         return result.affectedRows > 0;
     }
 }
-
-
-
-
-

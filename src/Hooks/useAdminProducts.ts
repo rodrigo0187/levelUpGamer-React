@@ -16,7 +16,12 @@ export function useAdminProducts() {
             const data = await res.json();
             setProducts(data);
         } catch (err: any) {
-            setError(err.message);
+            console.error("Fetch error:", err);
+            if (err.message.includes("Failed to fetch")) {
+                setError("No se pudo conectar con el servidor (Backend/Base de Datos inactiva).");
+            } else {
+                setError(err.message || "Error desconocido al cargar productos");
+            }
         } finally {
             setLoading(false);
         }
@@ -40,5 +45,39 @@ export function useAdminProducts() {
         fetchProducts();
     }, [fetchProducts]);
 
-    return { products, loading, error, deleteProduct, fetchProducts };
+    const createProduct = async (productData: any) => {
+        try {
+            const res = await fetch(`${API_URL}/productos`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(productData)
+            });
+            if (!res.ok) throw new Error("Error creating product");
+            await fetchProducts();
+        } catch (err: any) {
+            alert(err.message);
+        }
+    };
+
+    const updateProduct = async (id: number, productData: any) => {
+        try {
+            const res = await fetch(`${API_URL}/productos/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(productData)
+            });
+            if (!res.ok) throw new Error("Error updating product");
+            await fetchProducts();
+        } catch (err: any) {
+            alert(err.message);
+        }
+    };
+
+    return { products, loading, error, deleteProduct, fetchProducts, createProduct, updateProduct };
 }

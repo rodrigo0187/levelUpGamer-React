@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import "../assets/css/admin-layout.css"; // We will create this css later or use inline styles for now
+import "../assets/css/admin-layout.css";
 
 const AdminLayout: React.FC = () => {
     const navigate = useNavigate();
