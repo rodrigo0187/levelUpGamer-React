@@ -28,7 +28,6 @@ import UsersManager from "./pages/admin/UsersManager";
 import ProductsManager from "./pages/admin/ProductsManager";
 import BlogManager from "./pages/admin/BlogManager";
 import ProtectedRoute from "./components/ProtectedRoute";
-import adminUsersRoutes from "./routes/admin.users.routes";
 
 
 // LIBRERÍAS

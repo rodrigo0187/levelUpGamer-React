@@ -8,12 +8,12 @@ export function useAdminUsers() {
     const [error, setError] = useState<string | null>(null);
 
     const token = JSON.parse(localStorage.getItem("user") || "{}")?.token;
-
+    // Get
     const fetchUsers = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await fetch(`${API_URL}/users`, {
+            const res = await fetch(`${API_URL}/admin/users`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -36,11 +36,12 @@ export function useAdminUsers() {
         }
     }, [token]);
 
+    // Put
     const toggleUserStatus = async (id: number, currentStatus: boolean) => {
         if (!confirm(`¿${currentStatus ? "Bloquear" : "Activar"} usuario?`)) return;
 
         try {
-            const res = await fetch(`${API_URL}/users/${id}`, {
+            const res = await fetch(`${API_URL}/admin/users/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -60,26 +61,7 @@ export function useAdminUsers() {
             alert(err.message);
         }
     };
-
-    const deleteUser = async (id: number) => {
-        if (!confirm("¿Estás seguro de eliminar este usuario?")) return;
-
-        try {
-            const res = await fetch(`${API_URL}/users/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (!res.ok) throw new Error("Error deleting user");
-
-            setUsers(users => users.filter(u => u.id !== id));
-        } catch (err: any) {
-            alert(err.message);
-        }
-    };
-
+    // delete
     useEffect(() => {
         fetchUsers();
     }, [fetchUsers]);
@@ -90,6 +72,5 @@ export function useAdminUsers() {
         error,
         fetchUsers,
         toggleUserStatus,
-        deleteUser
     };
 }
