@@ -8,10 +8,10 @@ export function useAdminProducts() {
 
     const token = JSON.parse(localStorage.getItem("user") || "{}").token;
 
-    const fetchProducts = useCallback(async () => {
+    const fetchProducts = useCallback(async (sortBy: 'id' | 'created_at' = 'id', order: 'ASC' | 'DESC' = 'ASC') => {
         setLoading(true);
         try {
-            const res = await fetch(`${API_URL}/productos`); // Public endpoint usually
+            const res = await fetch(`${API_URL}/productos?sortBy=${sortBy}&order=${order}`);
             if (!res.ok) throw new Error("Error fetching products");
             const data = await res.json();
             setProducts(data);

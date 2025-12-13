@@ -10,6 +10,7 @@ import rssRoutes from "./routes/rss.routes";
 import compraRoutes from "./routes/compra.routes";
 import userRoutes from './routes/user.routes';
 import productosRoutes from "./routes/producto.route";
+import adminUsersRoutes from "./routes/admin.users.routes";
 
 dotenv.config();
 const app = express();
@@ -25,7 +26,7 @@ app.use("/api", rssRoutes);
 app.use("/api", compraRoutes);
 app.use("/api", userRoutes);
 app.use("/api", productosRoutes);
-
+app.use("/api/admin/users", adminUsersRoutes)
 
 app.listen(PORT, () => {
   console.log(`Servidor backend corriendo en ${PORT}`);

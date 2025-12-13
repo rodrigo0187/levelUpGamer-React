@@ -11,16 +11,20 @@ export interface Producto {
 }
 
 export class ProductoService {
-    static async getAll(): Promise<Producto[]> {
+    static async getAll(sortBy: 'id' | 'created_at' = 'id', order: 'ASC' | 'DESC' = 'ASC'): Promise<Producto[]> {
+        const allowedSort = ['id', 'created_at'];
+        const sortField = allowedSort.includes(sortBy) ? sortBy : 'id';
+        const sortOrder = order === 'DESC' ? 'DESC' : 'ASC';
+
         const [rows] = await db.query<RowDataPacket[] & Producto[]>(
-            "SELECT id, name as nombre, price as precio, img as imagen, `desc` as descripcion, stock FROM productos"
+            `SELECT id, name as nombre, price as precio, img as imagen, description as descripcion, stock FROM productos ORDER BY ${sortField} ${sortOrder}`
         );
         return rows;
     }
 
     static async getById(id: number): Promise<Producto[]> {
         const [rows] = await db.query<RowDataPacket[] & Producto[]>(
-            "SELECT id, name as nombre, price as precio, img as imagen, `desc` as descripcion, stock FROM productos WHERE id = ?",
+            "SELECT id, name as nombre, price as precio, img as imagen, description as descripcion, stock FROM productos WHERE id = ?",
             [id]
         );
         return rows;
@@ -32,7 +36,7 @@ export class ProductoService {
         const category = "GEN";
 
         const [result] = await db.query<ResultSetHeader>(
-            "INSERT INTO productos (name, `desc`, price, img, stock, code, category) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO productos (name, description, price, img, stock, code, category) VALUES (?, ?, ?, ?, ?, ?, ?)",
             [nombre, descripcion, precio, imagen, stock, code, category]
         );
         return result.insertId;
@@ -44,7 +48,7 @@ export class ProductoService {
         // Dynamic query building could be better but sticking to simple active fields
         // Note: The UI sends all fields usually. 
         const [result] = await db.query<ResultSetHeader>(
-            "UPDATE productos SET name = ?, `desc` = ?, price = ?, img = ?, stock = ? WHERE id = ?",
+            "UPDATE productos SET name = ?, description = ?, price = ?, img = ?, stock = ? WHERE id = ?",
             [nombre, descripcion, precio, imagen, stock, id]
         );
         return result.affectedRows > 0;

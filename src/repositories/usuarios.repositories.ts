@@ -1,5 +1,6 @@
 import { db } from "../db/db";
 import type { IUsuario } from "../interfaces/IUsuario";
+import type { UsuarioUpdate } from "../interfaces/UsuarioUpdate";
 
 export class UsuariosRepository {
   static async getAll(): Promise<IUsuario[]> {
@@ -22,7 +23,7 @@ export class UsuariosRepository {
     return (result as any).insertId;
   }
 
-  static async updateById(id: number, data: Partial<IUsuario>): Promise<boolean> {
+  static async updateById(id: number, data: Partial<UsuarioUpdate>): Promise<boolean> {
     const { nombre, email, telefono, role, activo } = data;
 
     const fields: string[] = [];

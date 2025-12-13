@@ -9,6 +9,5 @@ const router = Router();
 router.get("/users", verifyAdmin, UsuariosController.getAllUsers);
 router.get("/users/:id", verifyAdmin, UsuariosController.getUserById);
 router.put("/users/:id", verifyAdmin, UsuariosController.updateUser);
-router.delete("/users/:id", verifyAdmin, UsuariosController.deleteUser);
 
 export default router;

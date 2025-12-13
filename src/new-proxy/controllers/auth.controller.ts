@@ -93,7 +93,7 @@ export const login = async (req: Request, res: Response) => {
       email: user.email,
       role: user.role,
       telefono: user.telefono,
-      avatar?: user.avatar
+      avatar: user.avatar
       // Don't send password/psw back
     };
 

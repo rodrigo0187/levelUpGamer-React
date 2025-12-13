@@ -42,9 +42,6 @@ const UsersManager: React.FC = () => {
                                 >
                                     {user.activo ? <i className="fa fa-ban"></i> : <i className="fa fa-check"></i>}
                                 </button>
-                                <button className="btn btn-danger btn-sm" onClick={() => deleteUser(user.id)}>
-                                    <i className="fa fa-trash"></i>
-                                </button>
                             </td>
                         </tr>
                     ))}

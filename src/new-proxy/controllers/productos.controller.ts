@@ -1,9 +1,13 @@
 import type { Request, Response } from "express";
 import { ProductoService } from "../../services/producto.service";
 //get
-export const getAllProductos = async (req: Request,res: Response) => {
+export const getAllProductos = async (req: Request, res: Response) => {
   try {
-    const productos = await ProductoService.getAll();
+    const { sortBy, order } = req.query;
+    const productos = await ProductoService.getAll(
+      sortBy as 'id' | 'created_at',
+      order as 'ASC' | 'DESC'
+    );
     res.json(productos);
   } catch (err) {
     console.error("Error al obtener productos:", err);
