@@ -12,7 +12,7 @@ interface DbUsuario extends RowDataPacket {
   nombre: string;
   email: string;
   telefono?: string | null;
-  psw: string;
+  password: string;
   role: string;
   avatar?: string;
   created_at?: Date;
@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
     const hash = await bcrypt.hash(password, 10);
 
     await db.query(
-      "INSERT INTO usuarios (nombre, email, telefono, psw, role) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO usuarios (nombre, email, telefono, password, role) VALUES (?, ?, ?, ?, ?)",
       [nombre, email, telefono ?? null, hash, "user"]
     );
 
@@ -70,8 +70,8 @@ export const login = async (req: Request, res: Response) => {
 
     const user = rows[0];
 
-    // Compare provided 'password' with stored 'psw'
-    const match = await bcrypt.compare(password, user.psw);
+    // Compare provided 'password' with stored 'password'
+    const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
       return res.status(401).json({ message: "Credenciales inválidas" });
@@ -93,7 +93,7 @@ export const login = async (req: Request, res: Response) => {
       email: user.email,
       role: user.role,
       telefono: user.telefono,
-      avatar: user.avatar
+      avatar?: user.avatar
       // Don't send password/psw back
     };
 

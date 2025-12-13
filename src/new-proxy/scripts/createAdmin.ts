@@ -1,7 +1,6 @@
 // =====================================
 // CREAR USUARIO ADMIN EN MYSQL
 // =====================================
-
 import { db } from "../../db/db";
 import bcrypt from "bcryptjs";
 
@@ -20,16 +19,14 @@ async function crearAdmin() {
       process.exit(0);
     }
 
-    // Hash ya generado previamente
-
-    // Hash generado para 'admin123'
+    // 'admin123'
     const passwordHash = await bcrypt.hash("admin123", 10);
 
     // Insertar admin o actualizar si existe
     await db.query(
-      `INSERT INTO usuarios (nombre, email, telefono, psw, role) 
+      `INSERT INTO usuarios (nombre, email, telefono, password, role) 
        VALUES (?, ?, ?, ?, 'admin') 
-       ON DUPLICATE KEY UPDATE psw = ?, role = 'admin'`,
+       ON DUPLICATE KEY UPDATE password = ?, role = 'admin'`,
       ["Administrador", "admin@admin.com", "12345678", passwordHash, passwordHash]
     );
 
@@ -41,5 +38,4 @@ async function crearAdmin() {
     process.exit(1);
   }
 }
-
 crearAdmin();
