@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getAllPosts, getPostById, createPost, updatePost, deletePost } from "../controllers/posts.controller";
-import { verifyAdmin } from "../middlewares/verifyToken";
+import verifyAdmin from "../middlewares/verifyAdmin";
+
 
 const router = Router();
 
