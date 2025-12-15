@@ -9,12 +9,21 @@ export function useLoginusuario() {
     const login = async (email: string, psw: string) => {
         setloading(true);
         seterror(null);
+<<<<<<< HEAD
 
         try {
             const res = await fetch(`${API_URL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password: psw })
+=======
+        try{
+            // se realiza la peticion post al endpoint login
+            const res = await fetch(`${API_URL}/login`,{
+                method :"POST",
+                headers : {"content-type":"aplication/json"},
+                body : JSON.stringify({email , psw})
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
             });
 
             const data = await res.json();

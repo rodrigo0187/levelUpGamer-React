@@ -10,8 +10,13 @@ export function updatePerfilUsuario() {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         const token = user.token;
 
+<<<<<<< HEAD
         const res = await fetch(`${API_URL}/perfil`, {
             method: "PUT",
+=======
+        const res = await fetch(`${API_URL}/perfil`,{
+            method :"PUT",
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`

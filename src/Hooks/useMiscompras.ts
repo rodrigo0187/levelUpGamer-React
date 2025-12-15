@@ -10,12 +10,20 @@ export function useMisCompras() {
     const fetchMisCompras = async () => {
         setLoading(true);
         setError(null);
+<<<<<<< HEAD
         try {
             const user = JSON.parse(localStorage.getItem("user") || "{}");
             const token = user.token;
             const res = await fetch(`${API_URL}/mis-compras`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
+=======
+        try{
+            const token = localStorage.getItem("token");
+            const res = await fetch(`${API_URL}/mis-compras`,{
+                headers : {
+                    "Authorization":'Bearer ${token}'
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
                 }
             });
             if (!res.ok) {

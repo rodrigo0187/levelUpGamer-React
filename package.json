@@ -7,13 +7,21 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+<<<<<<< HEAD
     "start:backend": "tsx src/new-proxy/server.js",
     "create:admin": "tsx src/new-proxy/scripts/createAdmin.ts"
+=======
+    "start:backend": "tsx src/server.ts"
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
   },
   "dependencies": {
     "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
+<<<<<<< HEAD
     "body-parser": "^2.2.1",
+=======
+    "body-parser": "^2.2.0",
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "cors": "^2.8.5",
@@ -25,9 +33,13 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
+<<<<<<< HEAD
     "react-router-dom": "^7.9.6",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
+=======
+    "react-router-dom": "^7.9.6"
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

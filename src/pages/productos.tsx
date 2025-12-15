@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/stylesheet-productos.css";
+import { API_URL } from "../Hooks/api";
 
 import catan from "../assets/img/productos/catan.webp";
 import carcassonee from "../assets/img/productos/carcassonne.jpg";
@@ -101,7 +102,7 @@ const Productos: React.FC = () => {
     }
 
     try {
-      const resp = await fetch("http://localhost:3001/api/comprar", {
+      const resp = await fetch(`${API_URL}/comprar`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ items: cart.map(({ code, qty }) => ({ code, qty })) }),

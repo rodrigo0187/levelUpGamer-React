@@ -1,3 +1,4 @@
+//db compra
 import type { Request, Response } from "express";
 import { CompraService } from "../../services/compra.service";
 

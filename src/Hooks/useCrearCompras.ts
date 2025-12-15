@@ -11,6 +11,7 @@ export function useCrearCompras() {
         setLoading(true);
         setError(null);
 
+<<<<<<< HEAD
         try {
             const user = JSON.parse(localStorage.getItem("user") || "{}");
             const token = user.token;
@@ -19,6 +20,15 @@ export function useCrearCompras() {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
+=======
+        try{
+            const token = localStorage.getItem("token");
+            const res = await fetch(`${API_URL}/compras`,{
+                method :"POST",
+                headers :{
+                    "content-type":"application/json",
+                    "Authorization":'Bearer ${token}'
+>>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
                 },
                 body: JSON.stringify({ total })
             });
