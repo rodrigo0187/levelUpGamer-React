@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // controller usuario normal
-=======
-// db usuario
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
 import type { Request, Response } from "express";
 import { UsuariosService } from "../../services/usuarios.service";
 

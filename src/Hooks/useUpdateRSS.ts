@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "./api";
-<<<<<<< HEAD
 import type { Rssitem } from "../services/rss.service";
-=======
-import type{ Rssitem } from "../services/rss.service";
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
 
 export function useUpdateRSS() {
   const [loading, setLoading] = useState(false);

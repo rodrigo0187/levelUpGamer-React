@@ -8,4 +8,5 @@ export interface IUsuario {
   activo?: boolean; // 1 = active, 0 = blocked
   created_at?: Date;
   updated_at?: Date;
+  avatar?: string;
 }

@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/stylesheet-inicio-sesion.css";
-<<<<<<< HEAD
 import icoLogo from "../assets/img/icon/LOGO.ico";
 import { useLoginusuario } from "../Hooks/useLoginUsuario";
 import { isBlockedAccountError } from "../types/errors";
-=======
-import { API_URL } from "../Hooks/api";
-
-interface Usuario {
-  nombre: string;
-  email: string;
-  psw: string;
-}
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
 
 const InicioSesion: React.FC = () => {
   useEffect(() => {
@@ -45,17 +35,7 @@ const InicioSesion: React.FC = () => {
       return;
     }
     try {
-<<<<<<< HEAD
       const result = await login(email, psw);
-=======
-      const resp = await fetch(`${API_URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, psw }),
-      });
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
 
       if (result) {
         const nombreFormateado =

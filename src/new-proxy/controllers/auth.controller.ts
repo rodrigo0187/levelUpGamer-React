@@ -18,12 +18,7 @@ interface DbUsuario extends RowDataPacket {
   created_at?: Date;
   updated_at?: Date;
 }
-<<<<<<< HEAD
-=======
-// register
-export const register = async (req:Request, res:Response) => {
-  const { nombre, email, telefono, psw } = req.body;
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
+
 
 export const register = async (req: Request, res: Response) => {
   // Frontend sends 'password', not 'psw'
@@ -34,13 +29,8 @@ export const register = async (req: Request, res: Response) => {
   }
 
   try {
-<<<<<<< HEAD
     const [existe] = await db.query<DbUsuario[]>(
       "SELECT * FROM usuarios WHERE email = ?",
-=======
-    const [existe] = await db.query<Usuario[]>(
-      "SELECT * FROM usuario WHERE email = ?",
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
       [email]
     );
 
@@ -51,11 +41,7 @@ export const register = async (req: Request, res: Response) => {
     const hash = await bcrypt.hash(password, 10);
 
     await db.query(
-<<<<<<< HEAD
       "INSERT INTO usuarios (nombre, email, telefono, password, role) VALUES (?, ?, ?, ?, ?)",
-=======
-      "INSERT INTO usuario (nombre, email, telefono, psw, role) VALUES (?, ?, ?, ?, ?)",
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
       [nombre, email, telefono ?? null, hash, "user"]
     );
 
@@ -74,13 +60,8 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-<<<<<<< HEAD
     const [rows] = await db.query<DbUsuario[]>(
       "SELECT * FROM usuarios WHERE email = ?",
-=======
-    const [rows] = await db.query<Usuario[]>(
-      "SELECT * FROM usuario WHERE email = ?",
->>>>>>> 4a4a67a3595cbf8e3b4196907e39ecbf257f8c98
       [email]
     );
 
