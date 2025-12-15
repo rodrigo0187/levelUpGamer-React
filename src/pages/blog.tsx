@@ -52,7 +52,7 @@ const Blog: React.FC = () => {
                   {item.contenido?.substring(0, 150)}...
                 </p>
                 <p>
-                  <a href={`/blog/${item.id}`}>Leer más</a>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">Leer más</a>
                 </p>
               </div>
             </article>

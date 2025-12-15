@@ -53,9 +53,26 @@ export function useAdminBlog() {
         }
     };
 
+    const updatePost = async (id: number, postData: any) => {
+        try {
+            const res = await fetch(`${API_URL}/posts/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(postData)
+            });
+            if (!res.ok) throw new Error("Error updating post");
+            fetchPosts(); // Reload list
+        } catch (err: any) {
+            alert(err.message);
+        }
+    };
+
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
 
-    return { posts, loading, error, deletePost, createPost };
+    return { posts, loading, error, deletePost, createPost, updatePost };
 }
