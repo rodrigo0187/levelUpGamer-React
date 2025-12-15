@@ -1,0 +1,145 @@
+/* ==============================
+   RESET & BODY
+============================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  background: url("../img/teclado2.jpg") no-repeat center center fixed;
+  background-size: cover;
+  padding-top: 80px;
+  /* espacio navbar fijo */
+  box-sizing: border-box;
+}
+
+/* ==============================
+   CONTENEDOR FORMULARIO + MAPA
+============================== */
+.contenedor-form-mapa {
+  display: flex;
+  flex-direction: column;
+  /* mobile-first */
+  gap: 1.5rem;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 900px;
+  align-items: stretch;
+}
+
+/* FORMULARIO */
+.formulario form {
+  background: rgba(52, 58, 64, 0.9);
+  padding: 40px;
+  border-radius: 6px;
+  width: 100%;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Inputs y textarea */
+form input[type="text"],
+form input[type="password"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 16px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #eee;
+}
+
+/* SELECT */
+#country {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#country option:checked {
+  background-color: #7213fe;
+  color: white;
+}
+
+#country:focus {
+  outline: none;
+  border-color: #7213fe;
+}
+
+/* BOTONES */
+form button,
+input[type=submit].btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #7213fe;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+form button:hover,
+input[type=submit].btn:hover {
+  background-color: #b989ff;
+  transform: scale(1.05);
+}
+
+/* MAPA */
+.mapa {
+  flex: 1;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 0, 234, 0.493);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 300px;
+  /* altura mobile */
+  border: 0;
+  border-radius: 6px;
+}
+
+.mapa:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 0, 234, 0.493);
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .contenedor-form-mapa {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .formulario,
+  .mapa {
+    flex: 1;
+  }
+
+  .mapa iframe {
+    height: 100%;
+    min-height: 400px;
+  }
+}

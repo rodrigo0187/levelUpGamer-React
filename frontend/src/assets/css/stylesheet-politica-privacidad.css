@@ -1,0 +1,52 @@
+/* Fondo general */
+.profilepoliticaprivacidad {
+    min-height: 100vh;
+    /* padding-top: 100px; */
+    padding-bottom: 0;
+    /* background: #111; */
+    /* Fondo oscuro */
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+}
+
+/* Contenedor de contenido */
+.profilepoliticaprivacidad main {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Header */
+.profilepoliticaprivacidad header {
+    background: #222;
+    padding: 25px;
+    text-align: center;
+    border-bottom: 3px solid #1E90FF;
+}
+
+.profilepoliticaprivacidad header h1 {
+    margin: 0;
+    color: #fff;
+}
+
+/* Títulos */
+.profilepoliticaprivacidad h2 {
+    color: #39FF14;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Párrafos */
+.profilepoliticaprivacidad p,
+.profilepoliticaprivacidad li {
+    font-size: 16px;
+}
+
+/* Lista */
+.profilepoliticaprivacidad ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}

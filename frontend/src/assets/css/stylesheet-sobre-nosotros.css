@@ -1,0 +1,89 @@
+.profilesobrenosotros {
+    /* background-color: #0f0f1a; */
+    color: #ffffff;
+    min-height: 100vh;
+    /* padding-bottom: 10px; */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* HERO SECTION */
+.profilesobrenosotros .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('../img/imgHero2.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 5rem 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.profilesobrenosotros h1,
+.profilesobrenosotros h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    color: var(--neon-green);
+}
+
+.profilesobrenosotros p {
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* TARJETAS */
+.profilesobrenosotros .card {
+    background-color: #1a1a2e;
+    border: 1px solid #500570;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.profilesobrenosotros .card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 20px rgba(255, 0, 234, 0.45);
+}
+
+.profilesobrenosotros .card img {
+    width: 100%;
+    display: block;
+    border-bottom: 2px solid #500570;
+}
+
+.profilesobrenosotros .card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.profilesobrenosotros .card-text {
+    flex-grow: 1;
+    /* Fuerza que todas las tarjetas tengan la misma altura */
+}
+
+/* MEDIA QUERIES */
+
+/* Tablets y móviles grandes */
+@media (max-width: 991px) {
+    .profilesobrenosotros .row {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+/* Móviles */
+@media (max-width: 767px) {
+    .profilesobrenosotros .row {
+        flex-direction: column;
+    }
+}
+
+/* FOOTER */
+/* footer {
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 2px solid var(--neon-green);
+} */
