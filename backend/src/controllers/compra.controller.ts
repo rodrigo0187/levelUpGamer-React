@@ -1,6 +1,6 @@
 //db compra
 import type { Request, Response } from "express";
-import { CompraService } from "../../services/compra.service";
+import { CompraService } from "../services/compra.service";
 
 // get
 export const getMisCompras = async (req: Request & { user?: { id: number } }, res: Response) => {

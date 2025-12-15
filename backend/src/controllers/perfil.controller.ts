@@ -1,6 +1,6 @@
 // perfil.controller.ts
 import type { Request, Response } from "express";
-import { PerfilService } from "../../services/perfil.service";
+import { PerfilService } from "../services/perfil.service";
 
 export const getMyProfile = async (req: Request & { user?: { id: number } }, res: Response) => {
   try {

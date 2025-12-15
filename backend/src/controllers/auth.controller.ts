@@ -2,9 +2,9 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
-import { db } from "../../db/db";
+import { db } from "../db/db";
 import type { RowDataPacket } from "mysql2/promise";
-import type { IUsuario } from "../../interfaces/IUsuario";
+import type { IUsuario } from "../interfaces/IUsuario";
 
 // Interfaz interna para mapear la base de datos
 interface DbUsuario extends RowDataPacket {

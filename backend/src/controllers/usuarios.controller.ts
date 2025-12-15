@@ -1,6 +1,6 @@
 // controller usuario normal
 import type { Request, Response } from "express";
-import { UsuariosService } from "../../services/usuarios.service";
+import { UsuariosService } from "../services/usuarios.service";
 
 export class UsuariosController {
 

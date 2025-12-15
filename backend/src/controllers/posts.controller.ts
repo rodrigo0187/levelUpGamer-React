@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { PostsService } from "../../services/posts.services";
+import { PostsService } from "../services/posts.services";
 
 export const getAllPosts = async (req: Request, res: Response) => {
     try {
