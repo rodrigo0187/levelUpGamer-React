@@ -15,7 +15,7 @@ export function useRegisterUsuario() {
         seterror(null); // limpiar errores previos
         // hacemos la peticion post al endpoint / register
         try {
-            const res = await fetch(`${API_URL}/register`, {
+            const res = await fetch(`${API_URL}/auth/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },// le decimos que mandamos un json
                 body: JSON.stringify({ nombre, email, telefono, password: psw }) // cuerpo de la peticion
