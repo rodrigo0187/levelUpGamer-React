@@ -7,12 +7,14 @@ import express from "express";
 import cors from "cors";
 const PORT = process.env.PORT || 3006;
 
-import authRoutes from "./routes/auth.routes";
-import rssRoutes from "./routes/rss.routes";
-import compraRoutes from "./routes/compra.routes";
-import CompraDetalle from "./routes/compra.detalle.routes";
-import userRoutes from './routes/user.routes';
-import productosRoutes from "./routes/producto.route";
+import authRoutes from "./routes/auth.routes.js";
+import rssRoutes from "./routes/rss.routes.js";
+import compraRoutes from "./routes/compra.routes.js";
+import CompraDetalle from "./routes/compra.detalle.routes.js";
+import userRoutes from './routes/user.routes.js';
+import productosRoutes from "./routes/producto.route.js";
+import postsRoutes from "./routes/posts.routes.js";
+import adminUsersRoutes from "./routes/admin.users.routes.js";
 
 const app = express();
 
@@ -24,9 +26,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/compras', compraRoutes);
 app.use('/api/compra-detalle', CompraDetalle);
 app.use('/api/perfil', userRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/productos', productosRoutes);
 app.use('/api/rss', rssRoutes);
-app.use('/api/users', userRoutes);
+app.use("/api/posts", postsRoutes);
+app.use("/api/admin/users", adminUsersRoutes);
 
 
 app.listen(PORT, () => {
