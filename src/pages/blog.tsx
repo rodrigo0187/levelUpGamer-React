@@ -1,108 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "../assets/css/stylesheet-blog.css";
+import { useAdminBlog } from "../Hooks/useAdminBlog";
 
-// ===========================
-// TIPOS
-// ===========================
-type FeedItem = {
-  title: string;
-  link: string;
-  description: string;
-  pubDate: string;
-  timestamp: number;
-  source: string;
-  image: string;
-};
-
-// ===========================
-// CONFIGURACIÓN
-// ===========================
-const RSS_FEEDS = [
-  "https://feeds.ign.com/ign/all",
-  "https://www.levelup.com/rss/news",
-  "https://kotaku.com/rss",
-  "https://www.3djuegos.com/feeds/rss",
-  "https://www.eurogamer.net/feed",
-];
-
-const PLACEHOLDER =
-  "https://placehold.co/800x500/1a1a2e/58ff33?text=Level+Up+News";
-
-// ===========================
-// UTILIDADES
-// ===========================
-function extractImageFromDescription(html: string): string | null {
-  const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-  return match ? match[1] : null;
-}
-
-async function fetchFeed(url: string): Promise<FeedItem[]> {
-  try {
-    const resp = await fetch(`http://localhost:3001/api/rss?url=${encodeURIComponent(url)}`);
-    if (!resp.ok) throw new Error("Error al obtener RSS");
-
-    const data = await resp.json();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "application/xml");
-    const items = Array.from(xml.querySelectorAll("item"));
-
-    const sourceHost = new URL(url).hostname.replace("www.", "");
-
-    return items.map((it) => {
-      const title = it.querySelector("title")?.textContent?.trim() || "Sin título";
-      const link = it.querySelector("link")?.textContent?.trim() || "#";
-      const description = it.querySelector("description")?.textContent?.trim() || "";
-      const pubDate = it.querySelector("pubDate")?.textContent?.trim() || "";
-
-      const media =
-        it.getElementsByTagNameNS("*", "content")[0]?.getAttribute("url") ||
-        it.querySelector("enclosure")?.getAttribute("url") ||
-        extractImageFromDescription(description) ||
-        PLACEHOLDER;
-
-      const timestamp = pubDate ? new Date(pubDate).getTime() : 0;
-
-      return { title, link, description, pubDate, timestamp, source: sourceHost, image: media };
-    });
-  } catch (err) {
-    console.warn("fetchFeed error", url, err);
-    return [];
-  }
-}
-
-// ===========================
-// COMPONENTE
-// ===========================
 const Blog: React.FC = () => {
-  const [items, setItems] = useState<FeedItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { posts, loading, error } = useAdminBlog();
 
   useEffect(() => {
     document.title = "Blog & Noticias Gamer - Level Up Gamer";
-
-    let cancelled = false;
-
-    const loadFeeds = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const results = await Promise.all(RSS_FEEDS.map(fetchFeed));
-        const merged = results.flat().sort((a, b) => b.timestamp - a.timestamp).slice(0, 12);
-        if (!cancelled) setItems(merged);
-      } catch {
-        if (!cancelled) setError("No se pudieron cargar las noticias.");
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    };
-
-    loadFeeds();
-    return () => {
-      cancelled = true;
-    };
   }, []);
+
+  const PLACEHOLDER = "https://placehold.co/800x500/1a1a2e/58ff33?text=Level+Up+News";
 
   return (
     <div className="page-container profileblog">
@@ -114,39 +21,39 @@ const Blog: React.FC = () => {
       </section>
 
       <main className="container py-4">
-        {loading && <p className="muted">Cargando noticias...</p>}
-        {error && <p className="text-danger">{error}</p>}
+        {loading && <p className="muted text-center py-5">Cargando noticias...</p>}
+        {error && <p className="text-danger text-center">Error al cargar noticias: {error}</p>}
+
+        {!loading && !error && posts.length === 0 && (
+          <p className="text-center text-muted py-5">No hay noticias publicadas aún.</p>
+        )}
 
         <section id="news-list" className="news-grid">
-          {items.map((item, idx) => (
-            <article className="news-card" key={idx}>
+          {posts.map((item) => (
+            <article className="news-card" key={item.id}>
               <div className="news-image-wrapper">
                 <img
-                  src={item.image}
-                  alt={item.title}
+                  src={item.imagen || PLACEHOLDER}
+                  alt={item.titulo}
                   onError={(e) => (e.currentTarget.src = PLACEHOLDER)}
                 />
               </div>
 
               <div className="news-body">
                 <h2 className="news-title">
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                  </a>
+                  {item.titulo}
                 </h2>
 
                 <p className="meta small">
-                  Fecha: {item.pubDate ? new Date(item.pubDate).toLocaleDateString("es-ES") : "Desconocida"} •{" "}
-                  <span className="source">{item.source}</span>
+                  Fecha: {item.fecha ? new Date(item.fecha).toLocaleDateString("es-ES") : "Reciente"}
                 </p>
 
                 <p className="excerpt">
-                  {item.description.replace(/(<([^>]+)>)/gi, "").slice(0, 200)}...
+                  {item.contenido?.substring(0, 150)}...
                 </p>
-
-                <a href={item.link} target="_blank" rel="noopener noreferrer">
-                  Leer más →
-                </a>
+                <p>
+                  <a href={`/blog/${item.id}`}>Leer más</a>
+                </p>
               </div>
             </article>
           ))}

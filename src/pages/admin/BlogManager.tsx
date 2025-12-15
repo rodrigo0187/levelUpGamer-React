@@ -3,12 +3,12 @@ import { useAdminBlog } from "../../Hooks/useAdminBlog";
 
 const BlogManager: React.FC = () => {
     const { posts, loading, error, deletePost, createPost } = useAdminBlog();
-    const [newPost, setNewPost] = useState({ titulo: "", contenido: "", imagen: "" });
+    const [newPost, setNewPost] = useState({ titulo: "", contenido: "", imagen: "", url: "" });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await createPost(newPost);
-        setNewPost({ titulo: "", contenido: "", imagen: "" });
+        setNewPost({ titulo: "", contenido: "", imagen: "", url: "" });
     };
 
     if (loading) return <p>Cargando blog...</p>;
@@ -31,6 +31,9 @@ const BlogManager: React.FC = () => {
                     <div className="mb-2">
                         <input className="form-control" placeholder="URL Imagen" value={newPost.imagen} onChange={e => setNewPost({ ...newPost, imagen: e.target.value })} />
                     </div>
+                    <div className="mb-2">
+                        <input className="form-control" placeholder="URL WEB" value={newPost.url} onChange={e => setNewPost({ ...newPost, url: e.target.value })} />
+                    </div>
                     <button className="btn btn-primary" type="submit">Publicar</button>
                 </form>
             </div>
@@ -49,7 +52,7 @@ const BlogManager: React.FC = () => {
                         <tr key={post.id}>
                             <td>{post.id}</td>
                             <td>{post.titulo}</td>
-                            <td>{new Date(post.fecha_creacion).toLocaleDateString()}</td>
+                            <td>{new Date(post.fecha).toLocaleDateString()}</td>
                             <td>
                                 <button className="btn btn-danger btn-sm" onClick={() => deletePost(post.id)}>
                                     <i className="fa fa-trash"></i> Eliminar

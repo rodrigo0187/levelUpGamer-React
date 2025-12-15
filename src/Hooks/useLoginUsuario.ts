@@ -14,13 +14,22 @@ export function useLoginusuario() {
             const res = await fetch(`${API_URL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password: psw }) // Frontend still calls it psw locally in hook arg, but sends 'password'
+                body: JSON.stringify({ email, password: psw })
             });
 
             const data = await res.json();
-            // console.log("Respuesta del login:", data); // solo test para ver que llega desde el navegador
 
             if (!res.ok) {
+                // Si es error 403, es cuenta desactivada
+                if (res.status === 403) {
+                    throw {
+                        type: "ACCOUNT_BLOCKED",
+                        message: data.message,
+                        reason: data.reason, // Se espera que venga del backend
+                        supportEmail: "soporte@levelupgamer.cl" // Hardcoded o del backend si viene
+                    };
+                }
+
                 throw new Error(data.message || "Error al iniciar sesión");
             }
 
@@ -36,8 +45,8 @@ export function useLoginusuario() {
             return data;
 
         } catch (err: any) {
-            seterror(err.message);
-            return null;
+            seterror(err.message || "Error desconocido");
+            throw err; // Re-lanzar para que el componente pueda manejar tipos específicos de error
         } finally {
             setloading(false);
         }

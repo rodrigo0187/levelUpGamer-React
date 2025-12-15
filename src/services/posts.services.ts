@@ -3,7 +3,7 @@ import type { IPost } from "../interfaces/IPost";
 
 export class PostsService {
     static async getAll(): Promise<IPost[]> {
-        const [rows] = await db.query("SELECT * FROM posts ORDER BY fecha_creacion DESC");
+        const [rows] = await db.query("SELECT * FROM posts ORDER BY fecha DESC");
         return rows as IPost[];
     }
 
@@ -13,10 +13,10 @@ export class PostsService {
     }
 
     static async create(post: IPost): Promise<number> {
-        const { titulo, contenido, imagen, autor_id } = post;
+        const { titulo, contenido, imagen, url, autor_id } = post;
         const [result] = await db.query(
-            "INSERT INTO posts (titulo, contenido, imagen, autor_id, fecha_creacion) VALUES (?, ?, ?, ?, NOW())",
-            [titulo, contenido, imagen || null, autor_id]
+            "INSERT INTO posts (titulo, contenido, imagen, url, autor_id, fecha) VALUES (?, ?, ?, ?, ?, NOW())",
+            [titulo, contenido, imagen || null, url || null, autor_id]
         );
         return (result as any).insertId;
     }
@@ -28,6 +28,7 @@ export class PostsService {
         if (data.titulo !== undefined) { fields.push("titulo = ?"); values.push(data.titulo); }
         if (data.contenido !== undefined) { fields.push("contenido = ?"); values.push(data.contenido); }
         if (data.imagen !== undefined) { fields.push("imagen = ?"); values.push(data.imagen); }
+        if (data.url !== undefined) { fields.push("url = ?"); values.push(data.url); }
         // No updating autor_id or fecha_creacion usually
 
         if (fields.length === 0) return false;

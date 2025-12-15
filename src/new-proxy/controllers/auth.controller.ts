@@ -77,14 +77,23 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
+    if (!user.activo) {
+      return res.status(403).json({
+        message: "Cuenta desactivada",
+        reason: "Tu cuenta ha sido desactivada. Por favor contacta a soporte para solicitar la reactivación.",
+        supportEmail: "soporte@levelupgamer.com"
+      });
+    }
+
     const token = jwt.sign(
       {
         id: user.id,
         email: user.email,
         role: user.role
       },
-      "secretkey",
+      process.env.JWT_SECRET || "secretkey",
       { expiresIn: "1h" }
+      // controlar la expiracion de las contrasenas
     );
 
     const usuarioResponse: IUsuario = {

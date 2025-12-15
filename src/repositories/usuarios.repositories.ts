@@ -4,7 +4,7 @@ import type { UsuarioUpdate } from "../interfaces/UsuarioUpdate";
 
 export class UsuariosRepository {
   static async getAll(): Promise<IUsuario[]> {
-    const [rows] = await db.query("SELECT id, nombre, email, role, telefono, activo FROM usuarios");
+    const [rows] = await db.query("SELECT id, nombre, email, role, telefono, activo, avatar, created_at FROM usuarios");
     return rows as IUsuario[];
   }
 

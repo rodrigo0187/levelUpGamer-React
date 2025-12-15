@@ -19,12 +19,11 @@ const Perfil: React.FC = () => {
   const [historial, setHistorial] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  // 🔥 Obtenemos usuario desde localStorage
+  // usuario desde localStorage
   const userLS = JSON.parse(localStorage.getItem("user") || "null");
 
-  // ============================
   //   CONTROL DE SESIÓN
-  // ============================
+
   useEffect(() => {
     if (!userLS) {
       window.location.href = "/inicioSesion";
@@ -44,9 +43,7 @@ const Perfil: React.FC = () => {
     fetchPerfil();
   }, []);
 
-  // ============================
   //    OBTENER PERFIL BACKEND
-  // ============================
   const fetchPerfil = async () => {
     try {
       const resp = await fetch("http://localhost:3006/api/perfil");
@@ -74,9 +71,7 @@ const Perfil: React.FC = () => {
     }
   };
 
-  // ============================
   //          LOGOUT
-  // ============================
   const logout = () => {
     localStorage.removeItem("user");
     alert("Sesión cerrada");
@@ -92,9 +87,9 @@ const Perfil: React.FC = () => {
     );
   }
 
-  // ============================
+
   //          UI
-  // ============================
+
   return (
     <main className="profile-perfil-page">
       <div className="card shadow p-4">

@@ -18,8 +18,11 @@ export function useAdminUsers() {
                     Authorization: `Bearer ${token}`
                 }
             });
-
-            if (!res.ok) throw new Error("Error fetching users");
+            // capturar el error 
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.message || `Error ${res.status}: ${res.statusText}`);
+            }
 
             const data = await res.json();
 
@@ -30,7 +33,8 @@ export function useAdminUsers() {
                 }))
             );
         } catch (err: any) {
-            setError(err.message || "Error desconocido");
+            console.error("Error fetching users:", err);
+            setError(err.message || "Error desconocido al obtener usuarios");
         } finally {
             setLoading(false);
         }
@@ -38,7 +42,8 @@ export function useAdminUsers() {
 
     // Put
     const toggleUserStatus = async (id: number, currentStatus: boolean) => {
-        if (!confirm(`¿${currentStatus ? "Bloquear" : "Activar"} usuario?`)) return;
+        const action = currentStatus ? "desactivar" : "activar";
+        if (!confirm(`¿Está seguro que desea ${action} este usuario?`)) return;
 
         try {
             const res = await fetch(`${API_URL}/admin/users/${id}`, {
@@ -50,15 +55,23 @@ export function useAdminUsers() {
                 body: JSON.stringify({ activo: !currentStatus })
             });
 
-            if (!res.ok) throw new Error("Error updating user status");
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.message || "Error al actualizar el estado del usuario");
+            }
 
+            // Update local state
             setUsers(users =>
                 users.map(u =>
                     u.id === id ? { ...u, activo: !currentStatus } : u
                 )
             );
+
+            // Success notification
+            alert(`Usuario ${currentStatus ? "desactivado" : "activado"} correctamente`);
         } catch (err: any) {
-            alert(err.message);
+            console.error("Error toggling user status:", err);
+            alert(err.message || "Error al actualizar el estado del usuario");
         }
     };
     // delete

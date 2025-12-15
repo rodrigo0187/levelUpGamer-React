@@ -1,0 +1,83 @@
+/* Products Manager Responsive Styles */
+
+/* Common Styles */
+.products-manager-container {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.table-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.stock-badge {
+    font-size: 0.85em;
+    padding: 0.4em 0.8em;
+}
+
+/* Responsive Table / Card View */
+@media (max-width: 991px) {
+
+    /* Hide standard table header */
+    .products-table thead {
+        display: none;
+    }
+
+    /* Convert rows to cards */
+    .products-table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border: 1px solid #dee2e6;
+        padding: 1rem;
+    }
+
+    .products-table td {
+        display: block;
+        text-align: right;
+        padding: 0.5rem 0;
+        border: none;
+        position: relative;
+    }
+
+    .products-table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        color: #6c757d;
+    }
+
+    /* Special handling for the first column (ID/Image/Name) */
+    .products-table td:first-child {
+        text-align: left;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-info-mobile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .product-info-mobile img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .products-table td:last-child {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 1rem;
+    }
+}

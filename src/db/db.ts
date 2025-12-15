@@ -12,5 +12,8 @@ export const db = mysql.createPool({
   port: Number(process.env.DB_PORT?.toString().replace(/[^0-9]/g, '') || 3306),
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  connectTimeout: 10000, // 10 seconds
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
 });

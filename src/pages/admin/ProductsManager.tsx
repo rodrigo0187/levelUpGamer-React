@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAdminProducts } from "../../Hooks/useAdminProducts";
+import "./ProductsManager.css";
 
 const ProductsManager: React.FC = () => {
     const { products, loading, error, deleteProduct, createProduct, updateProduct, fetchProducts } = useAdminProducts();
@@ -61,8 +62,8 @@ const ProductsManager: React.FC = () => {
     );
 
     return (
-        <div className="container-fluid p-4">
-            <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="products-manager-container">
+            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                 <h2 className="fw-bold text-primary"><i className="fa fa-box-open me-2"></i>Gestión de Productos</h2>
                 <button className="btn btn-success shadow-sm" onClick={() => { setShowForm(!showForm); setEditingProduct(null); }}>
                     <i className={`fa ${showForm ? 'fa-minus' : 'fa-plus'} me-2`}></i>
@@ -83,14 +84,14 @@ const ProductsManager: React.FC = () => {
                                     <label className="form-label">Nombre del Producto</label>
                                     <input className="form-control" value={formData.nombre} onChange={e => setFormData({ ...formData, nombre: e.target.value })} required />
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-12 col-md-3">
                                     <label className="form-label">Precio</label>
                                     <div className="input-group">
                                         <span className="input-group-text">$</span>
                                         <input type="number" className="form-control" value={formData.precio} onChange={e => setFormData({ ...formData, precio: Number(e.target.value) })} required />
                                     </div>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-12 col-md-3">
                                     <label className="form-label">Stock</label>
                                     <input type="number" className="form-control" value={formData.stock} onChange={e => setFormData({ ...formData, stock: Number(e.target.value) })} required />
                                 </div>
@@ -114,7 +115,7 @@ const ProductsManager: React.FC = () => {
 
             {/* Controles de Filtro */}
             <div className="card shadow-sm border-0 mb-3">
-                <div className="card-body d-flex gap-3 align-items-center">
+                <div className="card-body d-flex flex-column flex-md-row gap-3 align-items-md-center">
                     <span className="fw-bold text-secondary"><i className="fa fa-filter me-1"></i> Ordenar por:</span>
                     <select className="form-select w-auto" value={sortBy} onChange={(e) => setSortBy(e.target.value as 'id' | 'created_at')}>
                         <option value="id">ID</option>
@@ -131,7 +132,7 @@ const ProductsManager: React.FC = () => {
             <div className="card shadow-sm border-0">
                 <div className="card-body p-0">
                     <div className="table-responsive">
-                        <table className="table table-hover align-middle mb-0">
+                        <table className="table table-hover align-middle mb-0 products-table">
                             <thead className="table-light text-secondary">
                                 <tr>
                                     <th className="ps-4">ID</th>
@@ -144,13 +145,28 @@ const ProductsManager: React.FC = () => {
                             <tbody>
                                 {products.map(p => (
                                     <tr key={p.id}>
-                                        <td className="ps-4 text-muted">#{p.id}</td>
-                                        <td>
+                                        <td className="ps-4 text-muted" data-label="ID">
+                                            {/* Mobile View: Combined Header Info */}
+                                            <div className="d-md-none product-info-mobile">
+                                                {p.imagen ? (
+                                                    <img src={p.imagen} alt={p.nombre} className="rounded" />
+                                                ) : (
+                                                    <div className="rounded bg-secondary d-flex align-items-center justify-content-center text-white" style={{ width: "60px", height: "60px" }}><i className="fa fa-image"></i></div>
+                                                )}
+                                                <div>
+                                                    <div className="fw-bold">#{p.id}</div>
+                                                    <div className="fw-bold text-dark">{p.nombre}</div>
+                                                </div>
+                                            </div>
+                                            {/* Desktop View: Just ID */}
+                                            <span className="d-none d-md-inline">#{p.id}</span>
+                                        </td>
+                                        <td data-label="Producto" className="d-none d-md-table-cell">
                                             <div className="d-flex align-items-center">
                                                 {p.imagen ? (
-                                                    <img src={p.imagen} alt={p.nombre} className="rounded me-3" style={{ width: "40px", height: "40px", objectFit: "cover" }} />
+                                                    <img src={p.imagen} alt={p.nombre} className="rounded me-3 table-image" />
                                                 ) : (
-                                                    <div className="rounded me-3 bg-secondary d-flex align-items-center justify-content-center text-white" style={{ width: "40px", height: "40px" }}><i className="fa fa-image"></i></div>
+                                                    <div className="rounded me-3 bg-secondary d-flex align-items-center justify-content-center text-white table-image"><i className="fa fa-image"></i></div>
                                                 )}
                                                 <div>
                                                     <div className="fw-bold">{p.nombre}</div>
@@ -158,13 +174,15 @@ const ProductsManager: React.FC = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="fw-bold text-success">${p.precio.toLocaleString()}</td>
-                                        <td>
-                                            <span className={`badge ${p.stock > 5 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}`}>
+                                        <td data-label="Precio" className="fw-bold text-success">
+                                            ${p.precio.toLocaleString()}
+                                        </td>
+                                        <td data-label="Stock">
+                                            <span className={`badge stock-badge ${p.stock > 5 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}`}>
                                                 {p.stock} en stock
                                             </span>
                                         </td>
-                                        <td className="text-end pe-4">
+                                        <td className="text-end pe-4" data-label="Acciones">
                                             <button className="btn btn-outline-primary btn-sm me-2" onClick={() => startEdit(p)} title="Editar">
                                                 <i className="fa fa-pencil"></i>
                                             </button>
