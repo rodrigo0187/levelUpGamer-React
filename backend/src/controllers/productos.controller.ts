@@ -1,6 +1,48 @@
 import type { Request, Response } from "express";
 import { ProductoService } from "../services/producto.service";
-//get
+/**
+ * @swagger
+ * tags:
+ *   name: Productos
+ *   description: API para gestión de productos
+ */
+
+/**
+ * @swagger
+ * /productos:
+ *   get:
+ *     summary: Obtener todos los productos
+ *     tags: [Productos]
+ *     parameters:
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [id, created_at]
+ *         description: Campo para ordenar
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [ASC, DESC]
+ *         description: Orden de clasificación
+ *     responses:
+ *       200:
+ *         description: Lista de productos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   nombre:
+ *                     type: string
+ *                   precio:
+ *                     type: number
+ */
 export const getAllProductos = async (req: Request, res: Response) => {
   try {
     const { sortBy, order } = req.query;
@@ -14,7 +56,26 @@ export const getAllProductos = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al obtener productos" });
   }
 };
-//get
+
+/**
+ * @swagger
+ * /productos/{id}:
+ *   get:
+ *     summary: Obtener un producto por ID
+ *     tags: [Productos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del producto
+ *     responses:
+ *       200:
+ *         description: Producto encontrado
+ *       404:
+ *         description: Producto no encontrado
+ */
 export const getProductoById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
@@ -27,7 +88,30 @@ export const getProductoById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al obtener producto" });
   }
 };
-//post
+
+/**
+ * @swagger
+ * /productos:
+ *   post:
+ *     summary: Crear un nuevo producto
+ *     tags: [Productos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               precio:
+ *                 type: number
+ *               descripcion:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Producto creado exitosamente
+ */
 export const createProducto = async (req: Request, res: Response) => {
   try {
     const id = await ProductoService.create(req.body);
@@ -37,7 +121,36 @@ export const createProducto = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al crear producto" });
   }
 };
-// put
+
+/**
+ * @swagger
+ * /productos/{id}:
+ *   put:
+ *     summary: Actualizar un producto existente
+ *     tags: [Productos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               precio:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Producto actualizado
+ *       404:
+ *         description: Producto no encontrado
+ */
 export const updateProducto = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
@@ -50,7 +163,25 @@ export const updateProducto = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error al actualizar producto" });
   }
 };
-// delete
+
+/**
+ * @swagger
+ * /productos/{id}:
+ *   delete:
+ *     summary: Eliminar un producto
+ *     tags: [Productos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Producto eliminado
+ *       404:
+ *         description: Producto no encontrado
+ */
 export const deleteProducto = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);

@@ -21,6 +21,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Swagger
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerOptions from './config/swagger.js';
+
+const specs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+
 // Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/compras', compraRoutes);

@@ -100,3 +100,6 @@ export default defineConfig([
 
 # Crear carpeta services
 - solo esta carpeta se encargara de enrutar las conexiones.
+
+# swagger
+ http://localhost:3006/api-docs

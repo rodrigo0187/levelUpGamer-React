@@ -5,12 +5,12 @@ import { getAllProductos, getProductoById, createProducto, updateProducto, delet
 const router = Router();
 
 // Endpoints públicos
-router.get("/productos", getAllProductos);
-router.get("/productos/:id", getProductoById);
+router.get("/", getAllProductos);
+router.get("/:id", getProductoById);
 
 // Endpoints protegidos (admin o usuario autenticado)
-router.post("/productos", verifyAdmin, createProducto);
-router.put("/productos/:id", verifyAdmin, updateProducto);
-router.delete("/productos/:id", verifyAdmin, deleteProducto);
+router.post("/", verifyAdmin, createProducto);
+router.put("/:id", verifyAdmin, updateProducto);
+router.delete("/:id", verifyAdmin, deleteProducto);
 
 export default router;
